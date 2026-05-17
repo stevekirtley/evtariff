@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EV Tariff Guide 2026 | Best Smart EV Charging Tariffs UK</title>
+<meta name="description" content="Independent guides to the best EV tariffs in the UK for 2026. Compare Octopus Intelligent Go, Octopus Go and EDF Go Electric — with real API rates, postcode lookups and £50 switching bonuses.">
+<meta name="keywords" content="EV tariff guide UK, best EV tariff 2026, Octopus Intelligent Go alternative, Octopus Go alternative, EDF Go Electric, smart EV charging UK, cheap overnight EV charging">
+<meta name="author" content="Steve Kirtley">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://evtariffguide.co.uk/">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="EV Tariff Guide 2026 | Best Smart EV Charging Tariffs UK">
+<meta property="og:description" content="Independent guides to the best EV tariffs in the UK for 2026. Real API rates, postcode lookups and £50 switching bonuses.">
+<meta property="og:url" content="https://evtariffguide.co.uk/">
+<meta property="og:image" content="https://evtariffguide.co.uk/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="EV Tariff Guide 2026 | Best Smart EV Charging Tariffs UK">
+<meta name="twitter:description" content="Independent guides to the best EV tariffs in the UK. Real rates, postcode lookups, £50 switching bonuses.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "EV Tariff Guide",
+  "url": "https://evtariffguide.co.uk",
+  "description": "Independent guides to the best EV charging tariffs in the UK for 2026.",
+  "author": { "@type": "Person", "name": "Steve Kirtley" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f9fc; --white: #ffffff; --border: #e4e9f0;
+    --text: #1a2332; --muted: #5e7085; --light: #98a6b5;
+    --oct: #e8341c; --oct-light: #fff4f2; --oct-border: #ffd4ce;
+    --edf: #0072ce; --edf-light: #eff6ff; --edf-border: #bfdbfe;
+    --green: #059669; --green-light: #ecfdf5; --green-border: #a7f3d0;
+    --amber: #b45309; --amber-light: #fffbeb; --amber-border: #fde68a;
+    --teal: #0ea5e9; --teal-light: #f0f9ff; --teal-border: #bae6fd;
+    --radius: 14px; --radius-sm: 8px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04);
+    --shadow: 0 2px 6px rgba(0,0,0,0.06), 0 6px 20px rgba(0,0,0,0.06);
+    --shadow-hover: 0 6px 16px rgba(0,0,0,0.09), 0 16px 36px rgba(0,0,0,0.08);
+    --display: 'Plus Jakarta Sans', sans-serif; --body: 'Inter', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--body); font-size: 1rem; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  a { color: var(--edf); } a:hover { text-decoration: underline; }
+
+  /* NAV */
+  nav { background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  nav .inner { max-width: 860px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; }
+  nav .logo { font-family: var(--display); font-size: 0.95rem; font-weight: 700; color: var(--text); }
+
+  /* HERO */
+  header { background: linear-gradient(140deg, #eef6ff 0%, #e8f3fe 40%, #edfaf4 100%); border-bottom: 1px solid var(--border); padding: 72px 0 64px; text-align: center; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; background: var(--green-light); border: 1px solid var(--green-border); color: var(--green); font-size: 0.75rem; font-weight: 600; padding: 4px 14px; border-radius: 20px; margin-bottom: 22px; }
+  h1 { font-family: var(--display); font-size: clamp(2rem, 5.5vw, 3.2rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 18px; }
+  .hero-sub { font-size: 1.1rem; color: var(--muted); max-width: 580px; margin: 0 auto 36px; line-height: 1.65; }
+
+  /* STAT ROW */
+  .stat-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 0; }
+  .stat { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 20px; box-shadow: var(--shadow-sm); text-align: center; }
+  .stat .val { font-family: var(--display); font-size: 1.4rem; font-weight: 800; color: var(--edf); line-height: 1; }
+  .stat .label { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+
+  /* GUIDE CARDS */
+  section { padding: 60px 0; }
+  h2 { font-family: var(--display); font-size: clamp(1.3rem, 3vw, 1.7rem); font-weight: 700; letter-spacing: -0.015em; line-height: 1.25; margin-bottom: 10px; }
+  p { color: #3a4f65; margin-bottom: 16px; } p:last-child { margin-bottom: 0; }
+  strong { color: var(--text); font-weight: 600; }
+  .section-label { font-size: 0.7rem; font-weight: 700; color: var(--teal); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px; }
+  .divider { height: 1px; background: var(--border); }
+
+  .guide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+  @media (max-width: 600px) { .guide-grid { grid-template-columns: 1fr; } }
+
+  .guide-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 32px 28px; text-decoration: none; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+  .guide-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); text-decoration: none; }
+  .guide-card.primary { border-color: var(--edf-border); background: linear-gradient(135deg, var(--edf-light), #f0fdf8); }
+  .guide-card.primary:hover { border-color: var(--edf); }
+  .guide-card.secondary-card { border-color: var(--oct-border); background: linear-gradient(135deg, var(--oct-light), #fff9f9); }
+  .guide-card.secondary-card:hover { border-color: var(--oct); }
+
+  .guide-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.06em; text-transform: uppercase; width: fit-content; }
+  .guide-card.primary .guide-tag { background: var(--edf-light); color: var(--edf); border: 1px solid var(--edf-border); }
+  .guide-card.secondary-card .guide-tag { background: var(--oct-light); color: var(--oct); border: 1px solid var(--oct-border); }
+
+  .guide-card h3 { font-family: var(--display); font-size: 1.2rem; font-weight: 700; color: var(--text); line-height: 1.25; }
+  .guide-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; flex: 1; }
+
+  .guide-pill-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill { font-size: 0.7rem; font-weight: 600; padding: 3px 9px; border-radius: 20px; }
+  .pill-green { background: var(--green-light); color: var(--green); border: 1px solid var(--green-border); }
+  .pill-amber { background: var(--amber-light); color: var(--amber); border: 1px solid var(--amber-border); }
+  .pill-blue  { background: var(--edf-light);  color: var(--edf);   border: 1px solid var(--edf-border); }
+  .pill-red   { background: var(--oct-light);  color: var(--oct);   border: 1px solid var(--oct-border); }
+
+  .guide-cta { display: inline-flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 700; margin-top: 4px; }
+  .guide-card.primary .guide-cta { color: var(--edf); }
+  .guide-card.secondary-card .guide-cta { color: var(--oct); }
+
+  /* ABOUT */
+  .about-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow-sm); }
+  .about-box p { font-size: 0.92rem; }
+
+  /* QUICK COMPARISON */
+  .quick-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-top: 24px; }
+  .quick-table th { font-family: var(--display); font-size: 0.82rem; font-weight: 700; padding: 12px 18px; text-align: left; border-bottom: 2px solid var(--border); background: #f8fafc; }
+  .quick-table th:nth-child(2) { color: var(--oct); }
+  .quick-table th:nth-child(3) { color: var(--oct); }
+  .quick-table th:nth-child(4) { color: var(--edf); }
+  .quick-table td { padding: 10px 18px; border-bottom: 1px solid #f0f4f8; color: #3a4f65; vertical-align: middle; }
+  .quick-table tr:last-child td { border-bottom: none; }
+  .quick-table td:first-child { font-weight: 500; color: var(--muted); font-size: 0.78rem; }
+  .val-good { color: var(--green); font-weight: 600; }
+  .val-warn { color: var(--amber); font-weight: 600; }
+
+  /* FOOTER */
+  footer { background: #f1f5f9; border-top: 1px solid var(--border); padding: 36px 0; margin-top: 0; }
+  footer p { font-size: 0.77rem; color: var(--light); text-align: center; line-height: 2; }
+  footer a { color: var(--muted); }
+
+  /* ANIMATIONS */
+  @keyframes fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-up { animation: fade-up 0.55s ease both; }
+  .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; } .delay-3 { animation-delay: 0.32s; }
+
+  @media (max-width: 640px) {
+    .container { padding: 0 16px; }
+    header { padding: 48px 0 40px; }
+    h1 { font-size: 2rem; }
+    .hero-sub { font-size: 0.95rem; }
+    .stat-row { gap: 8px; }
+    .stat { padding: 10px 14px; }
+    .stat .val { font-size: 1.2rem; }
+    section { padding: 40px 0; }
+    .guide-card { padding: 24px 20px; }
+    .quick-table { font-size: 0.78rem; }
+    .quick-table th, .quick-table td { padding: 9px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <span class="logo">⚡ EV Tariff Guide</span>
+  </div>
+</nav>
+
+<header>
+  <div class="container">
+    <div class="hero-eyebrow fade-up">✓ Updated May 2026 · Rates from supplier APIs</div>
+    <h1 class="fade-up delay-1">Find the best EV tariff<br>for your situation</h1>
+    <p class="hero-sub fade-up delay-2">Independent, numbers-first guides to smart overnight EV charging tariffs in the UK. Real rates, regional postcode lookups, and honest comparisons — no fluff.</p>
+    <div class="stat-row fade-up delay-3">
+      <div class="stat">
+        <div class="val">6.99p</div>
+        <div class="label">EDF off-peak rate /kWh</div>
+      </div>
+      <div class="stat">
+        <div class="val">8p</div>
+        <div class="label">Octopus IOG off-peak /kWh</div>
+      </div>
+      <div class="stat">
+        <div class="val">7 hrs</div>
+        <div class="label">EDF off-peak window</div>
+      </div>
+      <div class="stat">
+        <div class="val">£50</div>
+        <div class="label">Switching bonus available</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="container">
+    <div class="section-label">Guides</div>
+    <h2>Which guide is right for you?</h2>
+    <p>Two situations, two guides. Pick the one that matches where you are right now.</p>
+
+    <div class="guide-grid">
+
+      <a href="/best-octopus-intelligent-go-alternatives" class="guide-card primary">
+        <div class="guide-tag">Intelligent Go users</div>
+        <h3>Best Octopus Intelligent Go Alternatives</h3>
+        <p>On Intelligent Go and considering switching? Octopus raised prices in May 2026 and enforced their 6-hour cap. EDF Go Electric now beats it on off-peak rate, window length, and has no dispatch limit.</p>
+        <div class="guide-pill-row">
+          <span class="pill pill-green">6.99p vs 8p off-peak</span>
+          <span class="pill pill-green">7hr vs 6hr window</span>
+          <span class="pill pill-green">No dispatch cap</span>
+          <span class="pill pill-blue">HomeAssistant integration</span>
+        </div>
+        <span class="guide-cta">Read the comparison →</span>
+      </a>
+
+      <a href="/best-octopus-go-alternative" class="guide-card secondary-card">
+        <div class="guide-tag">Octopus Go users</div>
+        <h3>Best Octopus Go Alternative</h3>
+        <p>Stuck on standard Octopus Go because your car or charger isn't compatible with Intelligent Go? Don't pay a higher rate for fewer hours — EDF Go Electric is open to everyone.</p>
+        <div class="guide-pill-row">
+          <span class="pill pill-green">6.99p vs ~9.5p off-peak</span>
+          <span class="pill pill-green">7hrs vs 5hrs window</span>
+          <span class="pill pill-amber">Any EV or charger</span>
+          <span class="pill pill-red">No compatibility needed</span>
+        </div>
+        <span class="guide-cta">Read the comparison →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="container">
+    <div class="section-label">Quick comparison</div>
+    <h2>All three tariffs at a glance</h2>
+    <p>Not sure which Octopus tariff you're on? Here's how all three compare against EDF Go Electric.</p>
+
+    <table class="quick-table" aria-label="Quick comparison of Octopus Go, Intelligent Go and EDF Go Electric">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>🐙 Octopus Go</th>
+          <th>🐙 Intelligent Go</th>
+          <th>⚡ EDF Go Electric</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Off-peak rate</td>
+          <td class="val-warn">~9.5p/kWh</td>
+          <td>8p/kWh</td>
+          <td class="val-good">6.99p/kWh</td>
+        </tr>
+        <tr>
+          <td>Off-peak window</td>
+          <td class="val-warn">5 hrs (00:30–05:30)</td>
+          <td>6 hrs (23:30–05:30)</td>
+          <td class="val-good">7 hrs (23:00–06:00)</td>
+        </tr>
+        <tr>
+          <td>Smart dispatch</td>
+          <td class="val-warn">❌ None</td>
+          <td class="val-good">✅ Yes (6hr cap)</td>
+          <td class="val-good">✅ Optional, no cap</td>
+        </tr>
+        <tr>
+          <td>Compatibility needed</td>
+          <td class="val-good">None</td>
+          <td class="val-warn">Required to join</td>
+          <td class="val-good">None (Smart Charging optional)</td>
+        </tr>
+        <tr>
+          <td>Whole-home off-peak</td>
+          <td class="val-good">✅ Yes</td>
+          <td class="val-good">✅ Yes</td>
+          <td class="val-good">✅ Yes</td>
+        </tr>
+        <tr>
+          <td>Exit fee</td>
+          <td class="val-good">None</td>
+          <td class="val-good">None</td>
+          <td class="val-warn">£75</td>
+        </tr>
+        <tr>
+          <td>Pays you monthly</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="val-good">£5/month (Smart Charging)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="container">
+    <div class="section-label">About this site</div>
+    <h2>Who wrote this?</h2>
+    <div class="about-box">
+      <p>I'm Steve Kirtley, a developer and EV driver based in Wales. I switched from Octopus Intelligent Go to EDF Go Electric in May 2026 after Octopus raised prices and began enforcing the 6-hour dispatch cap.</p>
+      <p style="margin-top: 14px;">The piece that was missing was a HomeAssistant integration for EDF — so I built one. <a href="https://github.com/stevekirtley/HomeAssistant-EDFEnergy" target="_blank" rel="noopener">HomeAssistant-EDFEnergy</a> is a fork of BottleCapDave's excellent Octopus integration, adapted for EDF's API. It's MIT Licensed and open to contributions.</p>
+      <p style="margin-top: 14px;">All rates on this site are taken directly from supplier APIs and baked in at time of writing. Always verify current rates before switching. Referral links on this site earn me a referral credit and give you a £50 switching bonus.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>
+      EV Tariff Guide · Written by Steve Kirtley · Updated May 2026<br>
+      Referral links earn me a referral credit and give you a £50 switching bonus. Always verify rates before switching.<br>
+      <a href="/best-octopus-intelligent-go-alternatives">Intelligent Go Alternatives</a> ·
+      <a href="/best-octopus-go-alternative">Octopus Go Alternative</a> ·
+      <a href="https://github.com/stevekirtley/HomeAssistant-EDFEnergy" target="_blank" rel="noopener">HomeAssistant-EDFEnergy</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }});
+}, { threshold: 0.08 });
+document.querySelectorAll('section').forEach(el => {
+  el.style.opacity='0'; el.style.transform='translateY(14px)';
+  el.style.transition='opacity 0.55s ease, transform 0.55s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
