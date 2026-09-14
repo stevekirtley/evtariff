@@ -31,7 +31,7 @@
       "name": "What is the best alternative to Octopus Intelligent Go in 2026?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "EDF Go Electric combined with the free Smart Charging feature is the strongest alternative to Octopus Intelligent Go in 2026. It offers a lower off-peak rate of 6.66p/kWh versus Octopus's 8p/kWh, a longer 7-hour overnight window (23:00–06:00), no 6-hour intelligent dispatch cap, and pays you £5/month in bill credit for participating in Smart Charging."
+        "text": "EDF Go Electric combined with the free Smart Charging feature is the strongest alternative to Octopus Intelligent Go in 2026. It offers a lower off-peak rate of 6.99p/kWh versus Octopus's 8p/kWh, a longer 7-hour overnight window (23:00–06:00), no 6-hour intelligent dispatch cap, and pays you £5/month in bill credit for participating in Smart Charging."
       }
     },
     {
@@ -39,7 +39,7 @@
       "name": "How does EDF Go Electric compare to Octopus Intelligent Go?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "EDF Go Electric offers a cheaper off-peak rate (6.66p/kWh vs 8p/kWh), a longer overnight window (7 hours vs 6 hours), and no cap on intelligent dispatch. Octopus Intelligent Go requires a compatible vehicle or charger just to join the tariff, whereas EDF Go Electric is available to anyone — with Smart Charging scheduling as an optional free add-on for compatible vehicles and chargers. Octopus has no exit fee; EDF charges £75 on its 12-month Go Electric tariff, or £100 on the 18-month version, if you leave early."
+        "text": "EDF Go Electric offers a cheaper off-peak rate (6.99p/kWh vs 8p/kWh), a longer overnight window (7 hours vs 6 hours), and no cap on intelligent dispatch. Octopus Intelligent Go requires a compatible vehicle or charger just to join the tariff, whereas EDF Go Electric is available to anyone — with Smart Charging scheduling as an optional free add-on for compatible vehicles and chargers. Octopus has no exit fee; EDF charges £75 on its 12-month Go Electric tariff, or £100 on the 18-month version, if you leave early."
       }
     },
     {
@@ -439,13 +439,13 @@
           <tr>
             <td>Off-peak rate</td>
             <td id="oct-offpeak">8p / kWh (fixed)</td>
-            <td class="val-good edf-both" colspan="2" id="edf-offpeak">6.66p / kWh — same on both <span class="winner-badge">✓ Cheaper</span></td>
+            <td class="val-good edf-both" colspan="2" id="edf-offpeak">6.99p / kWh — same on both <span class="winner-badge">✓ Cheaper</span></td>
           </tr>
           <tr>
             <td>Peak / day rate</td>
             <td id="oct-peak">33–37p / kWh (regional — enter postcode)</td>
-            <td class="val-good" id="edf-peak">29–33p / kWh (regional — enter postcode) <span class="winner-badge">✓ Lower</span></td>
-            <td class="val-good" id="edf18-peak">28–32p / kWh (regional — enter postcode) <span class="winner-badge">✓ Lowest</span></td>
+            <td class="val-good" id="edf-peak">30.5–34.5p / kWh (regional — enter postcode) <span class="winner-badge">✓ Lower in most regions</span></td>
+            <td class="val-good" id="edf18-peak">29.5–33.5p / kWh (regional — enter postcode) <span class="winner-badge">✓ Lowest</span></td>
           </tr>
           <tr>
             <td>Off-peak window</td>
@@ -465,7 +465,7 @@
           <tr>
             <td>Standing charge</td>
             <td id="oct-standing">44–70p/day (regional — enter postcode)</td>
-            <td class="edf-both" colspan="2" id="edf-standing">43–67p/day (regional — enter postcode) <span class="winner-badge">✓ Lower</span></td>
+            <td class="edf-both" colspan="2" id="edf-standing">45–71p/day (regional — enter postcode)</td>
           </tr>
           <tr>
             <td>Smart Charging</td>
@@ -507,7 +507,7 @@
       </table>
     </div>
 
-    <p class="table-note">* Rates pulled from supplier APIs on 14 September 2026, inc VAT. Octopus: IOG-SMB-FIX-12M-26-09-02 (now a four-rate EV tariff in Octopus's API, with separate EV-device registers). EDF: EDF_EV_FIX_GOELEC_12M_V2_HH (Go Electric 12m v2) and EDF_EV_FIX_GOELEC_18M_HH (Go Electric 18m). Octopus off-peak is fixed at 8p/kWh in all regions; both EDF tariffs are 6.66p/kWh and share the same standing charge, differing only on peak. Rates are baked into this page at time of writing — always verify current rates on each supplier's website before switching.</p>
+    <p class="table-note">* Rates pulled from supplier APIs on 14 September 2026, inc VAT. Octopus: IOG-SMB-FIX-12M-26-09-02 (now a four-rate EV tariff in Octopus's API, with separate EV-device registers). EDF: EDF_EV_FIX_GOELEC_12M_V2_HH (Go Electric 12m v2) and EDF_EV_FIX_GOELEC_18M_HH (Go Electric 18m). Octopus off-peak is fixed at 8p/kWh in all regions; both EDF tariffs are 6.99p/kWh and share the same standing charge, differing only on peak. All figures include VAT at 5%. Note that VAT on domestic electricity in Great Britain drops from 5% to 0% between 1 October 2026 and 31 March 2027, which will cut every rate here by about 4.8% — suppliers' own quotes may already be shown at 0%. Rates are baked into this page at time of writing — always verify current rates on each supplier's website before switching.</p>
   </div>
 </section>
 
@@ -756,23 +756,24 @@
 <script>
 // Pulled from supplier APIs 14 Sep 2026, inc VAT.
 // Octopus: IOG-SMB-FIX-12M-26-09-02 | EDF: EDF_EV_FIX_GOELEC_12M_V2_HH + EDF_EV_FIX_GOELEC_18M_HH
-// EDF standing charge and 6.66p off-peak are identical on both EDF tariffs; only peak differs.
+// All figures INCLUDING VAT at 5%. EDF's API returns ex-VAT, so EDF values are x1.05.
+// EDF standing charge and 6.99p off-peak are identical on both EDF tariffs; only peak differs.
 // Format: [Oct SC, Oct peak, EDF SC, EDF 12m peak, EDF 18m peak, region label]
 const REGION_DATA = {
-  'EA': [53.89, 35.32, 51.38, 31.56, 30.80, 'Eastern England'],
-  'EM': [52.76, 33.32, 51.05, 30.39, 29.63, 'East Midlands'],
-  'MW': [69.70, 36.73, 67.39, 30.44, 29.68, 'Merseyside & N. Wales'],
-  'NS': [57.99, 35.49, 54.80, 31.10, 30.34, 'North Scotland'],
-  'NW': [46.63, 34.75, 45.34, 32.20, 31.44, 'North West'],
-  'NO': [63.22, 33.36, 61.23, 29.02, 28.26, 'North East'],
-  'SC': [64.53, 34.15, 61.12, 29.63, 28.87, 'South Scotland'],
-  'SE': [54.46, 35.54, 51.85, 31.77, 31.00, 'South East'],
-  'WA': [56.56, 34.87, 55.09, 30.97, 30.21, 'South Wales'],
-  'SW': [58.04, 35.42, 55.13, 31.02, 30.26, 'South West'],
-  'SO': [49.41, 34.72, 47.33, 32.19, 31.43, 'Southern'],
-  'WM': [59.05, 33.02, 56.87, 29.76, 29.00, 'West Midlands'],
-  'YO': [63.44, 32.67, 61.31, 29.01, 28.24, 'Yorkshire'],
-  'LO': [44.12, 33.64, 42.65, 32.81, 32.04, 'London'],
+  'EA': [53.89, 35.32, 53.95, 33.14, 32.34, 'Eastern England'],
+  'EM': [52.76, 33.32, 53.60, 31.91, 31.11, 'East Midlands'],
+  'MW': [69.70, 36.73, 70.76, 31.96, 31.16, 'Merseyside & N. Wales'],
+  'NS': [57.99, 35.49, 57.54, 32.66, 31.86, 'North Scotland'],
+  'NW': [46.63, 34.75, 47.61, 33.81, 33.01, 'North West'],
+  'NO': [63.22, 33.36, 64.29, 30.47, 29.67, 'North East'],
+  'SC': [64.53, 34.15, 64.18, 31.11, 30.31, 'South Scotland'],
+  'SE': [54.46, 35.54, 54.44, 33.36, 32.55, 'South East'],
+  'WA': [56.56, 34.87, 57.84, 32.52, 31.72, 'South Wales'],
+  'SW': [58.04, 35.42, 57.89, 32.57, 31.77, 'South West'],
+  'SO': [49.41, 34.72, 49.70, 33.80, 33.00, 'Southern'],
+  'WM': [59.05, 33.02, 59.71, 31.25, 30.45, 'West Midlands'],
+  'YO': [63.44, 32.67, 64.38, 30.46, 29.65, 'Yorkshire'],
+  'LO': [44.12, 33.64, 44.78, 34.45, 33.64, 'London'],
 };
 
 const POSTCODE_DNO = {
