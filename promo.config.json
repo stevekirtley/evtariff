@@ -1,0 +1,152 @@
+{
+  "_comment": "EDF referral promo toggle. scripts/apply-promo.py flips every 'off' string to its 'on' form while today is inside the window, and back again once it ends. Placeholders {referrer}, {end_long}, {end_short} are filled from 'promo'.",
+  "promo": {
+    "start": "2026-09-14",
+    "end": "2026-10-06",
+    "end_inclusive": true,
+    "timezone": "Europe/London",
+    "referrer": "100",
+    "end_long": "6 October 2026",
+    "end_short": "6 Oct 2026"
+  },
+  "replacements": {
+    "index.html": [
+      {
+        "off": "postcode lookups and £50 switching bonuses.\">",
+        "on": "postcode lookups and up to £75 switching bonuses.\">"
+      },
+      {
+        "off": "Real API rates, postcode lookups and £50 switching bonuses.\">",
+        "on": "Real API rates, postcode lookups and up to £75 switching bonuses.\">"
+      },
+      {
+        "off": "Real rates, postcode lookups, £50 switching bonuses.\">",
+        "on": "Real rates, postcode lookups, up to £75 switching bonuses.\">"
+      },
+      {
+        "off": "<div class=\"val\">£50</div>\n        <div class=\"label\">EDF switching bonus</div>",
+        "on": "<div class=\"val\">£75</div>\n        <div class=\"label\">EDF switching bonus (until {end_short})</div>"
+      },
+      {
+        "off": "Always verify current rates before switching. EDF referral links earn me a referral credit and give you a £50 switching bonus.</p>",
+        "on": "Always verify current rates before switching. EDF referral links earn me £{referrer} and currently give you a £75 switching bonus (promotional rate until {end_long}).</p>"
+      },
+      {
+        "off": "EDF referral links earn me a referral credit and give you a £50 switching bonus. Always verify rates before switching.<br>",
+        "on": "EDF referral links earn me £{referrer} and give you a £75 switching bonus (promotional rate, until {end_long}). Always verify rates before switching.<br>"
+      }
+    ],
+    "best-octopus-go-alternative.html": [
+      {
+        "off": "You receive a £50 switching bonus after your first bill.",
+        "on": "You receive a £75 switching bonus after your first bill (promotional rate until {end_long}, normally £50)."
+      },
+      {
+        "off": "<span class=\"badge badge-red\">£50 Switching Bonus</span>",
+        "on": "<span class=\"badge badge-red\">£75 Switching Bonus</span>"
+      },
+      {
+        "off": "<td>Switching bonus</td>\n            <td class=\"val-good\">£50 (via referral link)</td>\n            <td class=\"val-good\">£50 (via referral link)</td>",
+        "on": "<td>Switching bonus</td>\n            <td class=\"val-good\">£50 (via referral link)</td>\n            <td class=\"val-good\">£75 until {end_short} (via referral link)</td>"
+      },
+      {
+        "off": "<h2 id=\"switch-heading\">Switch to EDF and get a £50 switching bonus</h2>",
+        "on": "<h2 id=\"switch-heading\">Switch to EDF and get a £75 switching bonus</h2>"
+      },
+      {
+        "off": "<p>Use my referral link to switch to EDF Go Electric. You'll receive a <strong>£50 switching bonus after your first bill payment</strong>. I receive a separate referral credit.</p>",
+        "on": "<p>Use my referral link to switch to EDF Go Electric. You'll receive a <strong>£75 switching bonus after your first bill payment</strong> (promotional rate until {end_long}, normally £50). I receive a separate referral credit.</p>"
+      },
+      {
+        "off": "aria-label=\"Switch to EDF Go Electric and get a £50 switching bonus\"",
+        "on": "aria-label=\"Switch to EDF Go Electric and get a £75 switching bonus\""
+      },
+      {
+        "off": "<span class=\"referral-credit\">⚡ Get £50 switching bonus →</span>",
+        "on": "<span class=\"referral-credit\">⚡ Get £75 switching bonus →</span>"
+      },
+      {
+        "off": "<div class=\"alert\">⚠️ The £50 switching bonus is applied to your account after your first bill is issued. I receive a separate referral credit when you switch using my link.",
+        "on": "<div class=\"alert\">⚠️ The £75 EDF switching bonus (£50 from Octopus) is applied to your account after your first bill is issued. The EDF £75 rate is promotional and applies until {end_long}. I receive a separate referral credit when you switch using my link."
+      },
+      {
+        "off": "You can still get the £50 switching bonus — once processed,",
+        "on": "You can still get the £75 switching bonus (until {end_long}) — once processed,"
+      },
+      {
+        "off": "Switch to EDF and you'll receive a <strong>£50 switching bonus after your first bill payment</strong> — I receive a referral credit.</p>",
+        "on": "Switch to EDF and you'll receive a <strong>£75 switching bonus after your first bill payment</strong> (promotional rate until {end_long}) — I receive a referral credit.</p>"
+      },
+      {
+        "off": "EDF referral links earn me a referral credit and give you a £50 switching bonus. Octopus referral links give you a £50 switching bonus.",
+        "on": "EDF referral links earn me £{referrer} and give you a £75 switching bonus (promotional rate, until {end_long}). Octopus referral links give you a £50 switching bonus."
+      }
+    ],
+    "best-octopus-intelligent-go-alternatives.html": [
+      {
+        "off": "HomeAssistant integration. Get a £50 switching bonus when you switch.\">",
+        "on": "HomeAssistant integration. Get a £75 switching bonus when you switch.\">"
+      },
+      {
+        "off": "this triggers a £50 switching bonus on your first bill.",
+        "on": "this triggers a £75 switching bonus on your first bill (promotional rate until {end_long}, normally £50)."
+      },
+      {
+        "off": "\"text\": \"Yes. Using a referral link to switch to EDF Go Electric gives you a £50 switching bonus, applied to your account after your first bill is issued.",
+        "on": "\"text\": \"Yes. Using a referral link to switch to EDF Go Electric currently gives you a £75 switching bonus, applied to your account after your first bill is issued (promotional rate until {end_long}, normally £50)."
+      },
+      {
+        "off": "<span class=\"badge badge-red\">£50 Referral Credit</span>",
+        "on": "<span class=\"badge badge-red\">£75 Referral Credit</span>"
+      },
+      {
+        "off": "referral links for a £50 switching bonus, and full details of my EDF HomeAssistant fork.</p>",
+        "on": "referral links for a £75 switching bonus (EDF, promotional until {end_long}), and full details of my EDF HomeAssistant fork.</p>"
+      },
+      {
+        "off": "<td class=\"val-good\">£50 (via referral link)</td>",
+        "on": "<td class=\"val-good\">£75 until {end_short} (via referral link)</td>"
+      },
+      {
+        "off": "<h2 id=\"switch-heading\">Switch and get a £50 switching bonus</h2>",
+        "on": "<h2 id=\"switch-heading\">Switch and get a £75 switching bonus</h2>"
+      },
+      {
+        "off": "Switch to EDF and <strong>you'll receive a £50 switching bonus on your account after your first bill payment</strong>. Switch to Octopus",
+        "on": "Switch to EDF and <strong>you'll receive a £75 switching bonus on your account after your first bill payment</strong> (promotional rate until {end_long}, normally £50). Switch to Octopus"
+      },
+      {
+        "off": "aria-label=\"Switch to EDF Go Electric and get a £50 switching bonus\"",
+        "on": "aria-label=\"Switch to EDF Go Electric and get a £75 switching bonus\""
+      },
+      {
+        "off": "<span class=\"referral-credit\">⚡ Get £50 switching bonus →</span>",
+        "on": "<span class=\"referral-credit\">⚡ Get £75 switching bonus →</span>"
+      },
+      {
+        "off": "<div class=\"alert\">⚠️ The £50 switching bonus is applied to your account after your first bill is issued. I receive a separate referral credit when you switch using my link.",
+        "on": "<div class=\"alert\">⚠️ The £75 EDF switching bonus (£50 from Octopus) is applied to your account after your first bill is issued. The EDF £75 rate is promotional and applies until {end_long}. I receive a separate referral credit when you switch using my link."
+      },
+      {
+        "off": "call EDF directly on <strong>0333 006 9950</strong> — you can still get the £50 switching bonus.</p>",
+        "on": "call EDF directly on <strong>0333 006 9950</strong> — you can still get the £75 switching bonus (promotional until {end_long}).</p>"
+      },
+      {
+        "off": "EDF will then apply the £50 switching bonus to your account manually.</p>",
+        "on": "EDF will then apply the £75 switching bonus to your account manually (promotional rate until {end_long}).</p>"
+      },
+      {
+        "off": "(use my referral link above for a £50 switching bonus).</p>",
+        "on": "(use my referral link above for a £75 switching bonus until {end_long}).</p>"
+      },
+      {
+        "off": "Switch to EDF and you'll receive a <strong>£50 switching bonus after your first bill payment</strong> — I receive a referral credit.</p>",
+        "on": "Switch to EDF and you'll receive a <strong>£75 switching bonus after your first bill payment</strong> (promotional rate until {end_long}) — I receive a referral credit.</p>"
+      },
+      {
+        "off": "EDF referral links earn me a referral credit and give you a £50 switching bonus. Octopus referral links give you a £50 switching bonus.",
+        "on": "EDF referral links earn me £{referrer} and give you a £75 switching bonus (promotional rate, until {end_long}). Octopus referral links give you a £50 switching bonus."
+      }
+    ]
+  }
+}

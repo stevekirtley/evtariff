@@ -1,0 +1,37 @@
+name: EDF promo toggle
+
+# Flips the EDF referral bonus copy on when the promo window opens and back to
+# the normal £50 wording the morning after it closes. Dates live in
+# promo.config.json — edit that file, not this workflow, for the next promo.
+
+on:
+  schedule:
+    - cron: '20 5 * * *'   # 05:20 UTC daily (06:20 BST / 05:20 GMT)
+  workflow_dispatch:
+  push:
+    paths:
+      - 'promo.config.json'
+      - 'scripts/apply-promo.py'
+
+permissions:
+  contents: write
+
+jobs:
+  toggle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply the correct promo state
+        run: python3 scripts/apply-promo.py
+
+      - name: Commit if the copy changed
+        run: |
+          if git diff --quiet; then
+            echo "No change needed."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Auto-update EDF referral bonus copy for $(date -u +%Y-%m-%d)"
+          git push
