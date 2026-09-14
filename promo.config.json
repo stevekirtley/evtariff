@@ -46,8 +46,8 @@
         "on": "<span class=\"badge badge-red\">£75 Switching Bonus</span>"
       },
       {
-        "off": "<td>Switching bonus</td>\n            <td class=\"val-good\">£50 (via referral link)</td>\n            <td class=\"val-good\">£50 (via referral link)</td>",
-        "on": "<td>Switching bonus</td>\n            <td class=\"val-good\">£50 (via referral link)</td>\n            <td class=\"val-good\">£75 until {end_short} (via referral link)</td>"
+        "off": "<td>Switching bonus</td>\n            <td class=\"val-good\">£50 (via referral link)</td>\n            <td class=\"val-good edf-both\" colspan=\"2\">£50 (via referral link)</td>",
+        "on": "<td>Switching bonus</td>\n            <td class=\"val-good\">£50 (via referral link)</td>\n            <td class=\"val-good edf-both\" colspan=\"2\">£75 until {end_short} (via referral link)</td>"
       },
       {
         "off": "<h2 id=\"switch-heading\">Switch to EDF and get a £50 switching bonus</h2>",
@@ -104,8 +104,8 @@
         "on": "referral links for a £75 switching bonus (EDF, promotional until {end_long}), and full details of my EDF HomeAssistant fork.</p>"
       },
       {
-        "off": "<td class=\"val-good\">£50 (via referral link)</td>",
-        "on": "<td class=\"val-good\">£75 until {end_short} (via referral link)</td>"
+        "off": "<td class=\"val-good edf-both\" colspan=\"2\">£50 (via referral link)</td>",
+        "on": "<td class=\"val-good edf-both\" colspan=\"2\">£75 until {end_short} (via referral link)</td>"
       },
       {
         "off": "<h2 id=\"switch-heading\">Switch and get a £50 switching bonus</h2>",

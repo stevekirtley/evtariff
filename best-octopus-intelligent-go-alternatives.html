@@ -31,7 +31,7 @@
       "name": "What is the best alternative to Octopus Intelligent Go in 2026?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "EDF Go Electric combined with the free Smart Charging feature is the strongest alternative to Octopus Intelligent Go in 2026. It offers a lower off-peak rate of 6.99p/kWh versus Octopus's 8p/kWh, a longer 7-hour overnight window (23:00–06:00), no 6-hour intelligent dispatch cap, and pays you £5/month in bill credit for participating in Smart Charging."
+        "text": "EDF Go Electric combined with the free Smart Charging feature is the strongest alternative to Octopus Intelligent Go in 2026. It offers a lower off-peak rate of 6.66p/kWh versus Octopus's 8p/kWh, a longer 7-hour overnight window (23:00–06:00), no 6-hour intelligent dispatch cap, and pays you £5/month in bill credit for participating in Smart Charging."
       }
     },
     {
@@ -39,7 +39,7 @@
       "name": "How does EDF Go Electric compare to Octopus Intelligent Go?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "EDF Go Electric offers a cheaper off-peak rate (6.99p/kWh vs 8p/kWh), a longer overnight window (7 hours vs 6 hours), and no cap on intelligent dispatch. Octopus Intelligent Go requires a compatible vehicle or charger just to join the tariff, whereas EDF Go Electric is available to anyone — with Smart Charging scheduling as an optional free add-on for compatible vehicles and chargers. Octopus has no exit fee; EDF charges £75 if you leave early."
+        "text": "EDF Go Electric offers a cheaper off-peak rate (6.66p/kWh vs 8p/kWh), a longer overnight window (7 hours vs 6 hours), and no cap on intelligent dispatch. Octopus Intelligent Go requires a compatible vehicle or charger just to join the tariff, whereas EDF Go Electric is available to anyone — with Smart Charging scheduling as an optional free add-on for compatible vehicles and chargers. Octopus has no exit fee; EDF charges £75 on its 12-month Go Electric tariff, or £100 on the 18-month version, if you leave early."
       }
     },
     {
@@ -182,7 +182,7 @@
   .compare-table thead tr { background: #f8fafc; }
   .compare-table th { font-family: var(--display); font-size: 0.84rem; font-weight: 700; padding: 14px 18px; text-align: left; border-bottom: 2px solid var(--border); }
   .compare-table th.oct-col { color: var(--oct); }
-  .compare-table th.edf-col { color: var(--edf); }
+  .compare-table th.edf-col, .compare-table th.edf-col2 { color: var(--edf); }
   .compare-table td { padding: 11px 18px; border-bottom: 1px solid var(--border-soft); color: #3a4f65; vertical-align: top; line-height: 1.55; }
   .compare-table tr:last-child td { border-bottom: none; }
   .compare-table td:first-child { font-weight: 500; color: var(--muted); font-size: 0.8rem; width: 150px; }
@@ -327,7 +327,9 @@
       margin-bottom: 3px;
     }
     .compare-table td:nth-child(2)::before { content: "🐙 Octopus Intelligent Go"; color: var(--oct); }
-    .compare-table td:nth-child(3)::before { content: "⚡ EDF Go Electric"; color: var(--edf); }
+    .compare-table td:nth-child(3)::before { content: "⚡ EDF Go Electric 12m"; color: var(--edf); }
+    .compare-table td:nth-child(4)::before { content: "⚡ EDF Go Electric 18m"; color: var(--edf); }
+    .compare-table td.edf-both::before { content: "⚡ EDF Go Electric — both"; color: var(--edf); }
     .compare-table td:first-child::before { content: none; }
     .compare-table tr:hover td { background: inherit; }
 
@@ -418,12 +420,13 @@
     </div>
 
     <div style="overflow-x:auto;">
-      <table class="compare-table" aria-label="Tariff comparison between Octopus Intelligent Go and EDF Go Electric">
+      <table class="compare-table" aria-label="Tariff comparison between Octopus Intelligent Go and the two EDF Go Electric tariffs">
         <thead>
           <tr>
             <th scope="col">Feature</th>
             <th scope="col" class="oct-col">🐙 Octopus Intelligent Go</th>
-            <th scope="col" class="edf-col">⚡ EDF Go Electric + Smart Charging</th>
+            <th scope="col" class="edf-col">⚡ EDF Go Electric 12m</th>
+            <th scope="col" class="edf-col2">⚡ EDF Go Electric 18m</th>
           </tr>
         </thead>
         <tbody>
@@ -431,77 +434,80 @@
             <td>Tariff type</td>
             <td class="val-good">12-month fixed <span class="winner-badge">✓ Fixed</span></td>
             <td class="val-good">12-month fixed <span class="winner-badge">✓ Fixed</span></td>
+            <td class="val-good">18-month fixed <span class="winner-badge">✓ Fixed</span></td>
           </tr>
           <tr>
             <td>Off-peak rate</td>
             <td id="oct-offpeak">8p / kWh (fixed)</td>
-            <td class="val-good" id="edf-offpeak">6.99p / kWh <span class="winner-badge">✓ Cheaper</span></td>
+            <td class="val-good edf-both" colspan="2" id="edf-offpeak">6.66p / kWh — same on both <span class="winner-badge">✓ Cheaper</span></td>
           </tr>
           <tr>
             <td>Peak / day rate</td>
-            <td id="oct-peak">31–35p / kWh (regional — enter postcode)</td>
-            <td class="val-good" id="edf-peak">29–32p / kWh (regional — enter postcode) <span class="winner-badge">✓ Lower</span></td>
+            <td id="oct-peak">33–37p / kWh (regional — enter postcode)</td>
+            <td class="val-good" id="edf-peak">29–33p / kWh (regional — enter postcode) <span class="winner-badge">✓ Lower</span></td>
+            <td class="val-good" id="edf18-peak">28–32p / kWh (regional — enter postcode) <span class="winner-badge">✓ Lowest</span></td>
           </tr>
           <tr>
             <td>Off-peak window</td>
             <td>23:30–05:30 (+ intelligent slots)</td>
-            <td class="val-good">23:00–06:00 <span class="winner-badge">7 hrs</span></td>
+            <td class="val-good edf-both" colspan="2">23:00–06:00 <span class="winner-badge">7 hrs</span></td>
           </tr>
           <tr>
             <td>Whole-home off-peak rate</td>
             <td class="val-good">✅ Yes — entire home benefits 23:30–05:30</td>
-            <td class="val-good">✅ Yes — entire home benefits 23:00–06:00 <span class="winner-badge">7 hrs</span></td>
+            <td class="val-good edf-both" colspan="2">✅ Yes — entire home benefits 23:00–06:00 <span class="winner-badge">7 hrs</span></td>
           </tr>
           <tr>
             <td>Intelligent dispatch limit</td>
             <td class="val-warn">6 hours total per day — always in T&Cs, being enforced from May 2026. Includes the off-peak window (23:30–05:30)</td>
-            <td class="val-good">No cap — potentially a full charge every day</td>
+            <td class="val-good edf-both" colspan="2">No cap — potentially a full charge every day</td>
           </tr>
           <tr>
             <td>Standing charge</td>
-            <td id="oct-standing">42–68p/day (regional — enter postcode)</td>
-            <td id="edf-standing">48–74p/day (regional — enter postcode)</td>
+            <td id="oct-standing">44–70p/day (regional — enter postcode)</td>
+            <td class="edf-both" colspan="2" id="edf-standing">43–67p/day (regional — enter postcode) <span class="winner-badge">✓ Lower</span></td>
           </tr>
           <tr>
             <td>Smart Charging</td>
             <td>Included in tariff</td>
-            <td class="val-good">Free — earn £5/month bill credit for participating <span class="winner-badge">✓ Pays you</span></td>
+            <td class="val-good edf-both" colspan="2">Free — earn £5/month bill credit for participating <span class="winner-badge">✓ Pays you</span></td>
           </tr>
           <tr>
             <td>Compatible vehicles</td>
             <td>Required to join: Tesla, VW Group (ID.3/4/5/7, Audi, Skoda, Cupra, Seat), BMW/Mini, Ford, Porsche, Nissan Ariya, and others</td>
-            <td>Any EV gets the standard off-peak window. Smart Charging scheduling (optional add-on) additionally supports: Tesla, VW Group, BMW/Mini, Ford, Porsche, Nissan Ariya — <a href="https://www.edfenergy.com/electric-cars/ev-tariffs/smart-charging-bolt-on/compatible-evs" target="_blank" rel="noopener">full list on EDF's site</a></td>
+            <td class="edf-both" colspan="2">Any EV gets the standard off-peak window. Smart Charging scheduling (optional add-on) additionally supports: Tesla, VW Group, BMW/Mini, Ford, Porsche, Nissan Ariya — <a href="https://www.edfenergy.com/electric-cars/ev-tariffs/smart-charging-bolt-on/compatible-evs" target="_blank" rel="noopener">full list on EDF's site</a></td>
           </tr>
           <tr>
             <td>Compatible chargers</td>
             <td>Required to join: Ohme, Indra, Hypervolt, Zappi, and others</td>
-            <td>Any charger gets the standard off-peak window. Smart Charging scheduling additionally supports: Indra, Hypervolt, Zappi, Andersen, NexBlue — <strong>not Ohme</strong></td>
+            <td class="edf-both" colspan="2">Any charger gets the standard off-peak window. Smart Charging scheduling additionally supports: Indra, Hypervolt, Zappi, Andersen, NexBlue — <strong>not Ohme</strong></td>
           </tr>
           <tr>
             <td>HomeAssistant integration</td>
             <td class="val-good">✅ Excellent (BottleCapDave)</td>
-            <td class="val-good">✅ Available — <a href="https://github.com/stevekirtley/HomeAssistant-EDFEnergy" target="_blank">my fork of BottleCapDave's library, adapted for EDF</a></td>
+            <td class="val-good edf-both" colspan="2">✅ Available — <a href="https://github.com/stevekirtley/HomeAssistant-EDFEnergy" target="_blank">my fork of BottleCapDave's library, adapted for EDF</a></td>
           </tr>
           <tr>
             <td>Loyalty rewards</td>
             <td class="val-good">Octoplus — Octopoints, Saving Sessions, partner perks</td>
-            <td class="val-good">Flextras — Power Perks free-electricity events, tastecard <a href="#flextras">(details)</a></td>
+            <td class="val-good edf-both" colspan="2">Flextras — Power Perks free-electricity events, tastecard <a href="#flextras">(details)</a></td>
           </tr>
           <tr>
             <td>Switching bonus</td>
             <td class="val-good">£50 account credit (via referral link)</td>
-            <td class="val-good">£75 until 6 Oct 2026 (via referral link)</td>
+            <td class="val-good edf-both" colspan="2">£75 until 6 Oct 2026 (via referral link)</td>
           </tr>
           <tr>
             <td>Contract length</td>
             <td class="val-good">12 months — no exit fee</td>
             <td class="val-warn">12 months — £75 exit fee if you leave early</td>
+            <td class="val-warn">18 months — £100 exit fee if you leave early</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <p class="table-note">* All standing charges and peak rates taken from supplier APIs (May 2026, inc VAT). Octopus: INTELLI-FIX-12M-26-04-18. EDF: EDF_EV_FIX_GOELEC_12M_HH (Go Electric 12m). Octopus off-peak fixed at 8p/kWh (all regions). EDF off-peak 6.99p/kWh. Rates are baked into this page at time of writing — always verify current rates on each supplier's website before switching.</p>
+    <p class="table-note">* Rates pulled from supplier APIs on 14 September 2026, inc VAT. Octopus: IOG-SMB-FIX-12M-26-09-02 (now a four-rate EV tariff in Octopus's API, with separate EV-device registers). EDF: EDF_EV_FIX_GOELEC_12M_V2_HH (Go Electric 12m v2) and EDF_EV_FIX_GOELEC_18M_HH (Go Electric 18m). Octopus off-peak is fixed at 8p/kWh in all regions; both EDF tariffs are 6.66p/kWh and share the same standing charge, differing only on peak. Rates are baked into this page at time of writing — always verify current rates on each supplier's website before switching.</p>
   </div>
 </section>
 
@@ -748,21 +754,25 @@
 </footer>
 
 <script>
+// Pulled from supplier APIs 14 Sep 2026, inc VAT.
+// Octopus: IOG-SMB-FIX-12M-26-09-02 | EDF: EDF_EV_FIX_GOELEC_12M_V2_HH + EDF_EV_FIX_GOELEC_18M_HH
+// EDF standing charge and 6.66p off-peak are identical on both EDF tariffs; only peak differs.
+// Format: [Oct SC, Oct peak, EDF SC, EDF 12m peak, EDF 18m peak, region label]
 const REGION_DATA = {
-  'EA': [52.19, 33.32, 57.10, 30.28, 'Eastern England'],
-  'EM': [51.06, 31.32, 56.76, 28.62, 'East Midlands'],
-  'MW': [42.42, 31.64, 47.98, 29.55, 'Merseyside & N. Wales'],
-  'NS': [68.00, 34.73, 73.93, 31.71, 'North Scotland'],
-  'NW': [57.35, 31.02, 62.87, 28.95, 'North West'],
-  'NO': [61.52, 31.36, 67.45, 28.66, 'North East'],
-  'SC': [44.93, 32.75, 50.78, 29.95, 'South Scotland'],
-  'SE': [47.71, 32.72, 52.85, 30.00, 'South East'],
-  'WA': [52.76, 33.54, 57.60, 30.53, 'South Wales'],
-  'SW': [54.86, 32.87, 61.01, 30.10, 'South West'],
-  'SO': [56.34, 33.42, 61.05, 30.22, 'Southern'],
-  'WM': [61.74, 30.67, 67.54, 29.03, 'West Midlands'],
-  'YO': [62.83, 32.15, 67.35, 29.45, 'Yorkshire'],
-  'LO': [56.29, 33.49, 60.72, 29.52, 'London'],
+  'EA': [53.89, 35.32, 51.38, 31.56, 30.80, 'Eastern England'],
+  'EM': [52.76, 33.32, 51.05, 30.39, 29.63, 'East Midlands'],
+  'MW': [69.70, 36.73, 67.39, 30.44, 29.68, 'Merseyside & N. Wales'],
+  'NS': [57.99, 35.49, 54.80, 31.10, 30.34, 'North Scotland'],
+  'NW': [46.63, 34.75, 45.34, 32.20, 31.44, 'North West'],
+  'NO': [63.22, 33.36, 61.23, 29.02, 28.26, 'North East'],
+  'SC': [64.53, 34.15, 61.12, 29.63, 28.87, 'South Scotland'],
+  'SE': [54.46, 35.54, 51.85, 31.77, 31.00, 'South East'],
+  'WA': [56.56, 34.87, 55.09, 30.97, 30.21, 'South Wales'],
+  'SW': [58.04, 35.42, 55.13, 31.02, 30.26, 'South West'],
+  'SO': [49.41, 34.72, 47.33, 32.19, 31.43, 'Southern'],
+  'WM': [59.05, 33.02, 56.87, 29.76, 29.00, 'West Midlands'],
+  'YO': [63.44, 32.67, 61.31, 29.01, 28.24, 'Yorkshire'],
+  'LO': [44.12, 33.64, 42.65, 32.81, 32.04, 'London'],
 };
 
 const POSTCODE_DNO = {
@@ -789,11 +799,14 @@ function lookupPostcode() {
   const prefix = match[1];
   const dno = POSTCODE_DNO[prefix] || POSTCODE_DNO[prefix[0]] || null;
   if (!dno || !REGION_DATA[dno]) { status.textContent = '⚠ Region not found — showing national averages.'; return; }
-  const [octSC, octPeak, edfSC, edfPeak, regionLabel] = REGION_DATA[dno];
-  document.getElementById('oct-standing').textContent = `${octSC.toFixed(2)}p/day (${regionLabel})`;
-  document.getElementById('edf-standing').textContent = `${edfSC.toFixed(2)}p/day (${regionLabel})`;
-  document.getElementById('oct-peak').textContent = `${octPeak.toFixed(2)}p / kWh`;
-  document.getElementById('edf-peak').textContent = `${edfPeak.toFixed(2)}p / kWh`;
+  const [octSC, octPeak, edfSC, edf12Peak, edf18Peak, regionLabel] = REGION_DATA[dno];
+  const badge = (t) => `<span class="winner-badge">${t}</span>`;
+  const set = (id, html) => { document.getElementById(id).innerHTML = html; };
+  set('oct-standing', `${octSC.toFixed(2)}p/day (${regionLabel})`);
+  set('edf-standing', `${edfSC.toFixed(2)}p/day (${regionLabel}) ` + (edfSC < octSC ? badge('✓ Lower') : ''));
+  set('oct-peak', `${octPeak.toFixed(2)}p / kWh`);
+  set('edf-peak', `${edf12Peak.toFixed(2)}p / kWh ` + (edf12Peak < octPeak ? badge('✓ Lower') : ''));
+  set('edf18-peak', `${edf18Peak.toFixed(2)}p / kWh ` + (edf18Peak < Math.min(octPeak, edf12Peak) ? badge('✓ Lowest') : ''));
   status.textContent = `✓ Showing rates for ${regionLabel}`;
 }
 
