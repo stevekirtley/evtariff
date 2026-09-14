@@ -1,8 +1,10 @@
-name: EDF promo toggle
+name: Dated copy toggles
 
-# Flips the EDF referral bonus copy on when the promo window opens and back to
-# the normal £50 wording the morning after it closes. Dates live in
-# promo.config.json — edit that file, not this workflow, for the next promo.
+# Two date-driven rewrites, run together each morning:
+#   1. the EDF referral promo copy (promo.config.json)
+#   2. the VAT state — 5%, the 0% window from 1 Oct 2026 to 31 Mar 2027, then 5%
+#      again (vat.config.json)
+# Dates live in those config files; edit them rather than this workflow.
 
 on:
   schedule:
@@ -11,7 +13,9 @@ on:
   push:
     paths:
       - 'promo.config.json'
+      - 'vat.config.json'
       - 'scripts/apply-promo.py'
+      - 'scripts/apply-vat.py'
 
 permissions:
   contents: write
@@ -25,6 +29,9 @@ jobs:
       - name: Apply the correct promo state
         run: python3 scripts/apply-promo.py
 
+      - name: Apply the correct VAT state
+        run: python3 scripts/apply-vat.py
+
       - name: Commit if the copy changed
         run: |
           if git diff --quiet; then
@@ -33,5 +40,5 @@ jobs:
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "Auto-update EDF referral bonus copy for $(date -u +%Y-%m-%d)"
+          git commit -am "Auto-update dated copy (promo + VAT) for $(date -u +%Y-%m-%d)"
           git push

@@ -150,6 +150,7 @@
   .val-good { color: var(--green); font-weight: 500; }
   .val-warn { color: var(--amber); font-weight: 500; }
   .winner-badge { display: inline-block; font-size: 0.63rem; font-weight: 700; padding: 2px 7px; border-radius: 20px; background: var(--green-light); color: var(--green); border: 1px solid var(--green-border); margin-left: 5px; vertical-align: middle; }
+  .vat-note { display: block; font-size: 0.7rem; font-weight: 400; color: var(--muted); margin-top: 3px; font-style: italic; }
   .table-note { font-size: 0.74rem; color: var(--light); margin-top: 12px; line-height: 1.75; }
 
   .referral-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
@@ -284,6 +285,10 @@
     <h2 id="compare-heading">Octopus Go vs EDF Go Electric: head to head</h2>
     <p>EDF now sells Go Electric in two flavours: a <strong>12-month</strong> version and an <strong>18-month</strong> version. They share a standing charge and an identical 6.99p/kWh off-peak rate — the 18-month is about 0.76p/kWh cheaper at peak, for six more months of tie-in and a £100 exit fee instead of £75. Both are shown below. Standing charges and peak rates vary by region; enter your postcode for accurate figures.</p>
 
+    <div class="callout-warn" id="vat-callout">
+      <p><strong>Heads up — VAT on electricity drops to 0% on 1 October 2026.</strong> The figures below include VAT at 5%. From 1 October until 31 March 2027 the Government has cut VAT on domestic electricity in Great Britain to 0%, so every rate here falls by about 4.8% — EDF's off-peak becomes <strong>6.66p</strong>, Octopus Go <strong>9.05p</strong>, Intelligent Go <strong>7.62p</strong>. This page switches over automatically on the day.</p>
+    </div>
+
     <div class="postcode-row" role="search">
       <label for="postcode-input">Your postcode</label>
       <input type="text" id="postcode-input" placeholder="e.g. SA15 1AA" maxlength="8" aria-label="Enter your postcode to get accurate standing charges">
@@ -310,8 +315,8 @@
           </tr>
           <tr>
             <td>Off-peak rate</td>
-            <td class="val-warn" id="oct-offpeak">9.5p / kWh</td>
-            <td class="val-good edf-both" colspan="2" id="edf-offpeak">6.99p / kWh — same on both <span class="winner-badge">✓ Cheaper</span></td>
+            <td class="val-warn" id="oct-offpeak">9.5p / kWh<span class="vat-note">9.05p from 1 Oct (VAT cut)</span></td>
+            <td class="val-good edf-both" colspan="2" id="edf-offpeak">6.99p / kWh — same on both <span class="winner-badge">✓ Cheaper</span><span class="vat-note">6.66p from 1 Oct (VAT cut)</span></td>
           </tr>
           <tr>
             <td>Peak / day rate</td>
@@ -523,28 +528,37 @@
 </footer>
 
 <script>
-// Pulled from supplier APIs 14 Sep 2026, inc VAT.
-// Octopus Go: GO-FIX-12M-26-08-19 | EDF: EDF_EV_FIX_GOELEC_12M_V2_HH + EDF_EV_FIX_GOELEC_18M_HH
-// All figures INCLUDING VAT at 5%. EDF's API returns ex-VAT, so EDF values are x1.05.
-// EDF standing charge and 6.99p off-peak are identical on both EDF tariffs; only peak differs.
+// Pulled from supplier APIs 14 Sep 2026. ALL VALUES EXCLUDING VAT.
+// VAT is applied at render time by vatFactor() so the table stays correct across
+// the 0% VAT window (1 Oct 2026 - 31 Mar 2027) without needing a rebuild.
+// Octopus: GO-FIX-12M-26-08-19 | EDF: EDF_EV_FIX_GOELEC_12M_V2_HH + EDF_EV_FIX_GOELEC_18M_HH
+// EDF standing charge and off-peak rate are identical on both EDF tariffs; only peak differs.
 // Format: [Oct SC, Oct peak, EDF SC, EDF 12m peak, EDF 18m peak, region label]
 const REGION_DATA = {
-  'EA': [53.89, 35.05, 53.95, 33.14, 32.34, 'Eastern England'],
-  'EM': [52.76, 33.05, 53.60, 31.91, 31.11, 'East Midlands'],
-  'MW': [69.70, 36.46, 70.76, 31.96, 31.16, 'Merseyside & N. Wales'],
-  'NS': [57.99, 35.22, 57.54, 32.66, 31.86, 'North Scotland'],
-  'NW': [46.63, 34.48, 47.61, 33.81, 33.01, 'North West'],
-  'NO': [63.22, 33.09, 64.29, 30.47, 29.67, 'North East'],
-  'SC': [64.53, 33.88, 64.18, 31.11, 30.31, 'South Scotland'],
-  'SE': [54.46, 35.27, 54.44, 33.36, 32.55, 'South East'],
-  'WA': [56.56, 34.60, 57.84, 32.52, 31.72, 'South Wales'],
-  'SW': [58.04, 35.15, 57.89, 32.57, 31.77, 'South West'],
-  'SO': [49.41, 34.45, 49.70, 33.80, 33.00, 'Southern'],
-  'WM': [59.05, 32.75, 59.71, 31.25, 30.45, 'West Midlands'],
-  'YO': [63.44, 32.40, 64.38, 30.46, 29.65, 'Yorkshire'],
-  'LO': [44.12, 33.37, 44.78, 34.45, 33.64, 'London'],
+  'EA': [51.3256, 33.3832, 51.38, 31.56, 30.80, 'Eastern England'],
+  'EM': [50.2489, 31.4724, 51.05, 30.39, 29.63, 'East Midlands'],
+  'MW': [66.3804, 34.7209, 67.39, 30.44, 29.68, 'Merseyside & N. Wales'],
+  'NS': [55.2325, 33.545, 54.80, 31.10, 30.34, 'North Scotland'],
+  'NW': [44.4133, 32.8393, 45.34, 32.20, 31.44, 'North West'],
+  'NO': [60.2078, 31.5164, 61.23, 29.02, 28.26, 'North East'],
+  'SC': [61.4544, 32.2661, 61.12, 29.63, 28.87, 'South Scotland'],
+  'SE': [51.8626, 33.5891, 51.85, 31.77, 31.00, 'South East'],
+  'WA': [53.8681, 32.957, 55.09, 30.97, 30.21, 'South Wales'],
+  'SW': [55.2736, 33.4715, 55.13, 31.02, 30.26, 'South West'],
+  'SO': [47.0544, 32.8099, 47.33, 32.19, 31.43, 'Southern'],
+  'WM': [56.238, 31.1931, 56.87, 29.76, 29.00, 'West Midlands'],
+  'YO': [60.4188, 30.855, 61.31, 29.01, 28.24, 'Yorkshire'],
+  'LO': [42.0215, 31.781, 42.65, 32.81, 32.04, 'London'],
 };
 
+// UK VAT on domestic electricity: 5%, cut to 0% from 1 Oct 2026 to 31 Mar 2027, then 5% again.
+const VAT_ZERO_FROM = new Date('2026-10-01T00:00:00');
+const VAT_ZERO_END  = new Date('2027-04-01T00:00:00');
+function vatFactor(now) { now = now || new Date(); return (now >= VAT_ZERO_FROM && now < VAT_ZERO_END) ? 1 : 1.05; }
+function vatCutPending(now) { now = now || new Date(); return now < VAT_ZERO_FROM; }
+function exVatHint(value) {
+  return vatCutPending() ? `<span class="vat-note">${value.toFixed(2)}p from 1 Oct (VAT cut)</span>` : '';
+}
 const POSTCODE_DNO = {
   'AL':'EA','B':'WM','BA':'SW','BB':'NW','BD':'YO','BH':'SO','BL':'NW','BN':'SE','BR':'LO','BS':'SW',
   'CA':'NO','CB':'EA','CF':'WA','CH':'NW','CM':'EA','CO':'EA','CR':'LO','CT':'SE','CV':'WM','CW':'NW',
@@ -569,14 +583,17 @@ function lookupPostcode() {
   const prefix = match[1];
   const dno = POSTCODE_DNO[prefix] || POSTCODE_DNO[prefix[0]] || null;
   if (!dno || !REGION_DATA[dno]) { status.textContent = '⚠ Region not found — showing national ranges.'; return; }
-  const [octSC, octPeak, edfSC, edf12Peak, edf18Peak, regionLabel] = REGION_DATA[dno];
+  const [octSCx, octPeakx, edfSCx, edf12x, edf18x, regionLabel] = REGION_DATA[dno];
+  const v = vatFactor();
+  const octSC = octSCx * v, octPeak = octPeakx * v;
+  const edfSC = edfSCx * v, edf12Peak = edf12x * v, edf18Peak = edf18x * v;
   const badge = (t) => `<span class="winner-badge">${t}</span>`;
   const set = (id, html) => { document.getElementById(id).innerHTML = html; };
-  set('oct-standing', `${octSC.toFixed(2)}p/day (${regionLabel})`);
-  set('edf-standing', `${edfSC.toFixed(2)}p/day (${regionLabel}) ` + (edfSC < octSC ? badge('✓ Lower') : ''));
-  set('oct-peak', `${octPeak.toFixed(2)}p / kWh`);
-  set('edf-peak', `${edf12Peak.toFixed(2)}p / kWh ` + (edf12Peak < octPeak ? badge('✓ Lower') : ''));
-  set('edf18-peak', `${edf18Peak.toFixed(2)}p / kWh ` + (edf18Peak < Math.min(octPeak, edf12Peak) ? badge('✓ Lowest') : ''));
+  set('oct-standing', `${octSC.toFixed(2)}p/day (${regionLabel})` + exVatHint(octSCx));
+  set('edf-standing', `${edfSC.toFixed(2)}p/day (${regionLabel}) ` + (edfSC < octSC ? badge('✓ Lower') : '') + exVatHint(edfSCx));
+  set('oct-peak', `${octPeak.toFixed(2)}p / kWh` + exVatHint(octPeakx));
+  set('edf-peak', `${edf12Peak.toFixed(2)}p / kWh ` + (edf12Peak < octPeak ? badge('✓ Lower') : '') + exVatHint(edf12x));
+  set('edf18-peak', `${edf18Peak.toFixed(2)}p / kWh ` + (edf18Peak < Math.min(octPeak, edf12Peak) ? badge('✓ Lowest') : '') + exVatHint(edf18x));
   status.textContent = `✓ Showing rates for ${regionLabel}`;
 }
 
