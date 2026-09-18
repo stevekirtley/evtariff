@@ -51,8 +51,21 @@
   .vat-hint { font-size: 0.78rem; color: var(--muted); flex-basis: 100%; }
   .ctrl input[type=number] { font-family: var(--body); font-size: 0.9rem; padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--white); color: var(--text); width: 150px; }
   .ctrl .unit { font-size: 0.72rem; color: var(--light); }
-  .checkrow { display: flex; align-items: center; gap: 8px; flex-basis: 100%; font-size: 0.84rem; color: var(--muted); }
-  .checkrow input { width: 16px; height: 16px; accent-color: var(--edf); }
+  .qpanel { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; box-shadow: var(--shadow-sm); margin-top: 14px; }
+  .qpanel h3 { font-family: var(--display); font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+  .qpanel .qintro { font-size: 0.82rem; color: var(--muted); margin-bottom: 16px; }
+  .q { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid #f0f4f8; }
+  .q:last-of-type { border-bottom: none; padding-bottom: 0; }
+  .q .qtext { font-size: 0.88rem; color: var(--text); flex: 1 1 320px; }
+  .q .qtext small { display: block; font-size: 0.76rem; color: var(--light); line-height: 1.45; }
+  .seg { display: inline-flex; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; flex: none; }
+  .seg button { font-family: var(--body); font-size: 0.8rem; font-weight: 600; padding: 7px 14px; border: none; background: var(--white); color: var(--muted); cursor: pointer; border-left: 1px solid var(--border); }
+  .seg button:first-child { border-left: none; }
+  .seg button[aria-pressed="true"] { background: var(--edf); color: #fff; }
+  .seg button:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
+  .hiddencount { font-size: 0.8rem; color: var(--muted); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .flagnote { display: inline-block; font-size: 0.68rem; font-weight: 700; color: var(--amber); background: var(--amber-light); border: 1px solid var(--amber-border); border-radius: 20px; padding: 1px 8px; margin-top: 3px; }
+  .empty { padding: 30px 24px; text-align: center; color: var(--muted); font-size: 0.9rem; }
 
   .result { background: var(--white); border: 1px solid var(--green-border); border-left: 5px solid var(--green); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow-sm); margin: 18px 0 6px; }
   .result .rlabel { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
@@ -145,10 +158,59 @@
         <span class="unit">kWh the rest of the day</span>
       </div>
       <p class="vat-hint" id="vat-hint"></p>
-      <div class="checkrow">
-        <input type="checkbox" id="only-open" checked>
-        <label for="only-open" style="font-size:0.84rem;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted);">Only show tariffs anyone can join (hides the Pod Point and employee-only tariffs)</label>
+    </div>
+
+    <div class="qpanel">
+      <h3>Your setup</h3>
+      <p class="qintro">Several of these tariffs have entry requirements. Answer these and the table only shows what you could actually switch to.</p>
+
+      <div class="q" data-q="hh">
+        <span class="qtext">Do you have a smart meter sending half-hourly readings?
+          <small>Every tariff here needs one. If you are not sure, your supplier&#8217;s app will say.</small></span>
+        <span class="seg" role="group" aria-label="Smart meter">
+          <button type="button" data-v="yes" aria-pressed="true">Yes</button>
+          <button type="button" data-v="no" aria-pressed="false">No</button>
+        </span>
       </div>
+
+      <div class="q" data-q="compat">
+        <span class="qtext">Is your car or charger on the supplier&#8217;s compatible list?
+          <small>Needed to join the smart-dispatch tariffs &#8212; Intelligent Octopus Go and E.ON Next Drive Smart. Tesla, VW Group, BMW/Mini, Ford, Polestar and chargers like Ohme, Hypervolt, Zappi and Indra are usually covered.</small></span>
+        <span class="seg" role="group" aria-label="Compatible vehicle or charger">
+          <button type="button" data-v="yes" aria-pressed="false">Yes</button>
+          <button type="button" data-v="no" aria-pressed="false">No</button>
+          <button type="button" data-v="unsure" aria-pressed="true">Not sure</button>
+        </span>
+      </div>
+
+      <div class="q" data-q="podpoint">
+        <span class="qtext">Do you have a Pod Point charger, or would you buy one?
+          <small>EDF&#8217;s Pod Power tariffs need Pod Point hardware. Plug &amp; Power bundles the charger into the standing charge.</small></span>
+        <span class="seg" role="group" aria-label="Pod Point charger">
+          <button type="button" data-v="yes" aria-pressed="false">Yes</button>
+          <button type="button" data-v="no" aria-pressed="true">No</button>
+        </span>
+      </div>
+
+      <div class="q" data-q="oev">
+        <span class="qtext">Did you get your EV through Octopus Electric Vehicles?
+          <small>Their lease and salary-sacrifice scheme. It unlocks the EV Saver version of Intelligent Octopus Go, which is cheaper overnight than the standard one.</small></span>
+        <span class="seg" role="group" aria-label="Octopus Electric Vehicles customer">
+          <button type="button" data-v="yes" aria-pressed="false">Yes</button>
+          <button type="button" data-v="no" aria-pressed="true">No</button>
+        </span>
+      </div>
+
+      <div class="q" data-q="edfstaff">
+        <span class="qtext">Do you work for EDF?
+          <small>EDF&#8217;s Engage EV tariffs are for their own employees.</small></span>
+        <span class="seg" role="group" aria-label="EDF employee">
+          <button type="button" data-v="yes" aria-pressed="false">Yes</button>
+          <button type="button" data-v="no" aria-pressed="true">No</button>
+        </span>
+      </div>
+
+      <p class="hiddencount" id="hidden-count"></p>
     </div>
 
     <div class="result" id="result"></div>
@@ -205,7 +267,33 @@ function factor() { return includeVat ? (1 + vatRateNow() / 100) : 1; }
 
 function fmt(v) { return v === null || v === undefined ? '&#8212;' : (v * factor()).toFixed(2); }
 
-function isOpenToAll(t) { return !/Pod Point|employees only/i.test(t.elig); }
+// What each tariff requires before you can join it.
+const REQS = {
+  'EDF_PODPOINT_EV_FIX_POWER_12M_V3_HH':  ['hh','podpoint'],
+  'EDF_PODPOINT_EV_FIX_POWER_18M_V2_HH':  ['hh','podpoint'],
+  'EDF_PODPOINT_EV_PANDP_FIX_24M_V3_HH':  ['hh','podpoint'],
+  'EDF_ENGAGE_EV_FIX_12M_V2_HH':          ['hh','edfstaff'],
+  'EDF_ENGAGE_EV_FIX_18M_V2_HH':          ['hh','edfstaff'],
+  'IOG-SMB-FIX-OEV-12M-26-09-02':         ['hh','compat','oev'],
+  'IOG-SMB-FIX-12M-26-09-02':             ['hh','compat'],
+  'NEXT_DRIVE_SMART_V7_4':                ['hh','compat'],
+  'EDF_EV_FIX_GOELEC_12M_V3_HH':          ['hh'],
+  'EDF_EV_FIX_GOELEC_18M_V2_HH':          ['hh'],
+  'GO-FIX-12M-26-08-19':                  ['hh'],
+  'GO-VAR-22-10-14':                      ['hh'],
+  'NEXT_DRIVE_FIXED_V32':                 ['hh'],
+  'NEXT_DRIVE_LITE_V3_3':                 ['hh']
+};
+
+const answers = { hh: 'yes', compat: 'unsure', podpoint: 'no', oev: 'no', edfstaff: 'no' };
+
+// A requirement blocks a tariff only on a clear "no"; "not sure" lets it through, flagged.
+function eligibility(t) {
+  const reqs = REQS[t.code] || [];
+  const blockers = reqs.filter(r => answers[r] === 'no');
+  const unsure = reqs.filter(r => answers[r] === 'unsure');
+  return { ok: blockers.length === 0, blockers: blockers, unsure: unsure.length > 0 };
+}
 
 function usage(id) {
   const v = parseFloat($(id).value);
@@ -225,10 +313,10 @@ function render() {
   const dno = $('region-select').value;
   const offKwh = usage('usage-off');
   const peakKwh = usage('usage-peak');
-  const openOnly = $('only-open').checked;
+  let hidden = 0;
   const rows = TARIFFS
     .filter(t => t.regions[dno])
-    .filter(t => !openOnly || isOpenToAll(t))
+    .filter(t => { const e = eligibility(t); if (!e.ok) hidden++; return e.ok; })
     .map(t => {
       const r = t.regions[dno];
       const row = { t: t, sc: r.sc, peak: r.peak, off: r.off };
@@ -261,9 +349,21 @@ function render() {
       '<td class="cost' + (r.cost !== null && r.cost === bestCost ? ' best' : '') + '">' + (r.cost === null ? '&#8212;' : money(r.cost)) + '</td>' +
       '<td>' + term + '</td>' +
       '<td' + (t.exit ? ' class="warnflag"' : '') + '>' + exit + '</td>' +
-      '<td><span class="elig">' + t.elig + '</span></td>' +
+      '<td><span class="elig">' + t.elig +
+        (eligibility(t).unsure ? '<br><span class="flagnote">check compatibility</span>' : '') +
+      '</span></td>' +
       '</tr>';
   }).join('');
+
+  $('hidden-count').innerHTML = hidden
+    ? hidden + ' tariff' + (hidden === 1 ? '' : 's') + ' hidden because of your answers. Change an answer above to see ' + (hidden === 1 ? 'it' : 'them') + '.'
+    : 'Every tariff here is one you could switch to.';
+
+  if (!rows.length) {
+    $('tariff-body').innerHTML = '<tr><td colspan="8" class="empty">No tariff matches your answers. ' +
+      (answers.hh === 'no' ? 'Every EV tariff needs a smart meter sending half-hourly readings &#8212; ask your supplier to enable them, or to install one.' : 'Try changing an answer above.') +
+      '</td></tr>';
+  }
 
   $('caption').innerHTML = rows.length + ' tariffs in <strong>' + REGION_NAMES[dno] +
     '</strong> &#183; unit rates in p/kWh, standing charge in p/day &#183; ' +
@@ -299,7 +399,7 @@ function renderResult(byCost, offKwh, peakKwh) {
       (next ? ' That is ' + money(saving) + ' a year less than the next best, ' + next.t.name + '.' : '') +
       (win.t.term ? '' : ' <strong>Note:</strong> this is a variable tariff, so its rates can change at any time &#8212; the fixed tariffs below hold their price for the term.') +
       (win.t.exit ? ' Leaving early costs &#163;' + win.t.exit.toFixed(0) + '.' : '') +
-      (isOpenToAll(win.t) ? '' : ' <strong>Check you qualify:</strong> ' + win.t.elig + '.') +
+      (eligibility(win.t).unsure ? ' <strong>Before you switch:</strong> confirm your car or charger is on the compatible list &#8212; ' + win.t.elig.toLowerCase() + '.' : '') +
     '</p>' +
     (byCost.length > 1 ? '<div class="runners">' + byCost.slice(1, 4).map(r =>
       '<span class="runner"><b>' + r.t.name + '</b> ' + money(r.cost) + '</span>').join('') + '</div>' : '');
@@ -317,7 +417,16 @@ $('vat-exc').addEventListener('click', () => setVat(false));
 $('region-select').addEventListener('change', render);
 $('usage-off').addEventListener('input', render);
 $('usage-peak').addEventListener('input', render);
-$('only-open').addEventListener('change', render);
+document.querySelectorAll('.q').forEach(q => {
+  const key = q.dataset.q;
+  q.querySelectorAll('.seg button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      answers[key] = btn.dataset.v;
+      q.querySelectorAll('.seg button').forEach(o => o.setAttribute('aria-pressed', String(o === btn)));
+      render();
+    });
+  });
+});
 
 document.querySelectorAll('th.sortable').forEach(th => {
   th.addEventListener('click', () => {
