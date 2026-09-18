@@ -39,7 +39,7 @@
       "name": "How does EDF Go Electric compare to Octopus Intelligent Go?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "EDF Go Electric offers a cheaper off-peak rate (6.99p/kWh vs 8p/kWh), a longer overnight window (7 hours vs 6 hours), and no cap on intelligent dispatch. Octopus Intelligent Go requires a compatible vehicle or charger just to join the tariff, whereas EDF Go Electric is available to anyone — with Smart Charging scheduling as an optional free add-on for compatible vehicles and chargers. Octopus has no exit fee; EDF charges £75 on its 12-month Go Electric tariff, or £100 on the 18-month version, if you leave early."
+        "text": "EDF Go Electric offers a cheaper off-peak rate (6.99p/kWh vs 8p/kWh), a longer overnight window (7 hours vs 6 hours), and no cap on intelligent dispatch. Since EDF's price rise on 18 September 2026 its peak rate and standing charge are higher than Octopus's, so the advantage rests on overnight usage. Octopus Intelligent Go requires a compatible vehicle or charger just to join the tariff, whereas EDF Go Electric is available to anyone — with Smart Charging scheduling as an optional free add-on for compatible vehicles and chargers. Octopus has no exit fee; EDF charges £75 on its 12-month Go Electric tariff, or £100 on the 18-month version, if you leave early."
       }
     },
     {
@@ -449,8 +449,8 @@
           <tr>
             <td>Peak / day rate</td>
             <td id="oct-peak">33–37p / kWh (regional — enter postcode)</td>
-            <td class="val-good" id="edf-peak">30.5–34.5p / kWh (regional — enter postcode) <span class="winner-badge">✓ Lower in most regions</span></td>
-            <td class="val-good" id="edf18-peak">29.5–33.5p / kWh (regional — enter postcode) <span class="winner-badge">✓ Lowest</span></td>
+            <td id="edf-peak">35–39p / kWh (regional — enter postcode)</td>
+            <td id="edf18-peak">33–37p / kWh (regional — enter postcode)</td>
           </tr>
           <tr>
             <td>Off-peak window</td>
@@ -470,7 +470,7 @@
           <tr>
             <td>Standing charge</td>
             <td id="oct-standing">44–70p/day (regional — enter postcode)</td>
-            <td class="edf-both" colspan="2" id="edf-standing">45–71p/day (regional — enter postcode)</td>
+            <td class="val-warn edf-both" colspan="2" id="edf-standing">50–76p/day (regional — enter postcode)</td>
           </tr>
           <tr>
             <td>Smart Charging</td>
@@ -512,7 +512,7 @@
       </table>
     </div>
 
-    <p class="table-note">* Rates pulled from supplier APIs on 14 September 2026, inc VAT. Octopus: IOG-SMB-FIX-12M-26-09-02 (now a four-rate EV tariff in Octopus's API, with separate EV-device registers). EDF: EDF_EV_FIX_GOELEC_12M_V2_HH (Go Electric 12m v2) and EDF_EV_FIX_GOELEC_18M_HH (Go Electric 18m). Octopus off-peak is fixed at 8p/kWh in all regions; both EDF tariffs are 6.99p/kWh and share the same standing charge, differing only on peak. All figures include VAT at 5%. Note that VAT on domestic electricity in Great Britain drops from 5% to 0% between 1 October 2026 and 31 March 2027, which will cut every rate here by about 4.8% — suppliers' own quotes may already be shown at 0%. Rates are baked into this page at time of writing — always verify current rates on each supplier's website before switching.</p>
+    <p class="table-note">* Octopus rates pulled 14 September 2026; EDF rates pulled 18 September 2026, after EDF raised Go Electric prices that morning. Octopus: IOG-SMB-FIX-12M-26-09-02 (now a four-rate EV tariff in Octopus's API, with separate EV-device registers). EDF: EDF_EV_FIX_GOELEC_12M_V3_HH (Go Electric 12m v3) and EDF_EV_FIX_GOELEC_18M_V2_HH (Go Electric 18m v2), both introduced 18 September 2026. Octopus off-peak is fixed at 8p/kWh in all regions; both EDF tariffs are 6.99p/kWh and share the same standing charge, differing only on peak. EDF raised peak rates by roughly 14% (12m) and 11% (18m) and standing charges by about 10% on 18 September 2026, leaving the off-peak rate untouched. All figures include VAT at 5%. Note that VAT on domestic electricity in Great Britain drops from 5% to 0% between 1 October 2026 and 31 March 2027, which will cut every rate here by about 4.8% — suppliers' own quotes may already be shown at 0%. Rates are baked into this page at time of writing — always verify current rates on each supplier's website before switching.</p>
   </div>
 </section>
 
@@ -759,27 +759,27 @@
 </footer>
 
 <script>
-// Pulled from supplier APIs 14 Sep 2026. ALL VALUES EXCLUDING VAT.
+// Octopus pulled 14 Sep 2026; EDF pulled 18 Sep 2026 (new v3/v2 products). ALL VALUES EXCLUDING VAT.
 // VAT is applied at render time by vatFactor() so the table stays correct across
 // the 0% VAT window (1 Oct 2026 - 31 Mar 2027) without needing a rebuild.
-// Octopus: IOG-SMB-FIX-12M-26-09-02 | EDF: EDF_EV_FIX_GOELEC_12M_V2_HH + EDF_EV_FIX_GOELEC_18M_HH
+// Octopus: IOG-SMB-FIX-12M-26-09-02 | EDF: EDF_EV_FIX_GOELEC_12M_V3_HH + EDF_EV_FIX_GOELEC_18M_V2_HH
 // EDF standing charge and off-peak rate are identical on both EDF tariffs; only peak differs.
 // Format: [Oct SC, Oct peak, EDF SC, EDF 12m peak, EDF 18m peak, region label]
 const REGION_DATA = {
-  'EA': [51.3256, 33.6404, 51.38, 31.56, 30.80, 'Eastern England'],
-  'EM': [50.2489, 31.7296, 51.05, 30.39, 29.63, 'East Midlands'],
-  'MW': [66.3804, 34.9781, 67.39, 30.44, 29.68, 'Merseyside & N. Wales'],
-  'NS': [55.2325, 33.8022, 54.80, 31.10, 30.34, 'North Scotland'],
-  'NW': [44.4133, 33.0965, 45.34, 32.20, 31.44, 'North West'],
-  'NO': [60.2078, 31.7736, 61.23, 29.02, 28.26, 'North East'],
-  'SC': [61.4544, 32.5233, 61.12, 29.63, 28.87, 'South Scotland'],
-  'SE': [51.8626, 33.8463, 51.85, 31.77, 31.00, 'South East'],
-  'WA': [53.8681, 33.2142, 55.09, 30.97, 30.21, 'South Wales'],
-  'SW': [55.2736, 33.7287, 55.13, 31.02, 30.26, 'South West'],
-  'SO': [47.0544, 33.0671, 47.33, 32.19, 31.43, 'Southern'],
-  'WM': [56.238, 31.4503, 56.87, 29.76, 29.00, 'West Midlands'],
-  'YO': [60.4188, 31.1122, 61.31, 29.01, 28.24, 'Yorkshire'],
-  'LO': [42.0215, 32.0382, 42.65, 32.81, 32.04, 'London'],
+  'EA': [51.3256, 33.6404, 56.99, 35.92, 34.02, 'Eastern England'],
+  'EM': [50.2489, 31.7296, 56.61, 34.78, 32.88, 'East Midlands'],
+  'MW': [66.3804, 34.9781, 72.81, 34.80, 32.90, 'Merseyside & N. Wales'],
+  'NS': [55.2325, 33.8022, 60.29, 35.19, 33.28, 'North Scotland'],
+  'NW': [44.4133, 33.0965, 50.83, 36.70, 34.80, 'North West'],
+  'NO': [60.2078, 31.7736, 66.74, 33.40, 31.49, 'North East'],
+  'SC': [61.4544, 32.5233, 66.56, 34.04, 32.14, 'South Scotland'],
+  'SE': [51.8626, 33.8463, 57.47, 36.10, 34.20, 'South East'],
+  'WA': [53.8681, 33.2142, 60.56, 35.34, 33.44, 'South Wales'],
+  'SW': [55.2736, 33.7287, 60.74, 35.35, 33.44, 'South West'],
+  'SO': [47.0544, 33.0671, 52.96, 36.37, 34.46, 'Southern'],
+  'WM': [56.238, 31.4503, 62.38, 34.17, 32.27, 'West Midlands'],
+  'YO': [60.4188, 31.1122, 66.82, 33.52, 31.62, 'Yorkshire'],
+  'LO': [42.0215, 32.0382, 48.07, 37.21, 35.30, 'London'],
 };
 
 // UK VAT on domestic electricity: 5%, cut to 0% from 1 Oct 2026 to 31 Mar 2027, then 5% again.
@@ -820,9 +820,9 @@ function lookupPostcode() {
   const edfSC = edfSCx * v, edf12Peak = edf12x * v, edf18Peak = edf18x * v;
   const badge = (t) => `<span class="winner-badge">${t}</span>`;
   const set = (id, html) => { document.getElementById(id).innerHTML = html; };
-  set('oct-standing', `${octSC.toFixed(2)}p/day (${regionLabel})` + exVatHint(octSCx));
+  set('oct-standing', `${octSC.toFixed(2)}p/day (${regionLabel}) ` + (octSC < edfSC ? badge('✓ Lower') : '') + exVatHint(octSCx));
   set('edf-standing', `${edfSC.toFixed(2)}p/day (${regionLabel}) ` + (edfSC < octSC ? badge('✓ Lower') : '') + exVatHint(edfSCx));
-  set('oct-peak', `${octPeak.toFixed(2)}p / kWh` + exVatHint(octPeakx));
+  set('oct-peak', `${octPeak.toFixed(2)}p / kWh ` + (octPeak < Math.min(edf12Peak, edf18Peak) ? badge('✓ Lower') : '') + exVatHint(octPeakx));
   set('edf-peak', `${edf12Peak.toFixed(2)}p / kWh ` + (edf12Peak < octPeak ? badge('✓ Lower') : '') + exVatHint(edf12x));
   set('edf18-peak', `${edf18Peak.toFixed(2)}p / kWh ` + (edf18Peak < Math.min(octPeak, edf12Peak) ? badge('✓ Lowest') : '') + exVatHint(edf18x));
   status.textContent = `✓ Showing rates for ${regionLabel}`;
