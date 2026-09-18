@@ -49,6 +49,20 @@
   .vat-switch button[aria-pressed="true"] { background: var(--edf); color: #fff; }
   .vat-switch button:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
   .vat-hint { font-size: 0.78rem; color: var(--muted); flex-basis: 100%; }
+  .ctrl input[type=number] { font-family: var(--body); font-size: 0.9rem; padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--white); color: var(--text); width: 150px; }
+  .ctrl .unit { font-size: 0.72rem; color: var(--light); }
+  .checkrow { display: flex; align-items: center; gap: 8px; flex-basis: 100%; font-size: 0.84rem; color: var(--muted); }
+  .checkrow input { width: 16px; height: 16px; accent-color: var(--edf); }
+
+  .result { background: var(--white); border: 1px solid var(--green-border); border-left: 5px solid var(--green); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow-sm); margin: 18px 0 6px; }
+  .result .rlabel { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  .result h2 { font-family: var(--display); font-size: 1.35rem; font-weight: 800; letter-spacing: -0.015em; line-height: 1.2; margin-bottom: 6px; }
+  .result .rcost { font-family: var(--display); font-size: 1.9rem; font-weight: 800; color: var(--text); line-height: 1.1; }
+  .result .rsub { font-size: 0.86rem; color: var(--muted); margin-top: 8px; }
+  .runners { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .runner { font-size: 0.8rem; color: var(--muted); background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 5px 13px; }
+  .runner b { color: var(--text); font-weight: 600; }
+  td.cost { font-weight: 700; }
 
   .scroll { overflow-x: auto; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
   table { border-collapse: collapse; width: 100%; min-width: 800px; font-variant-numeric: tabular-nums; }
@@ -120,8 +134,24 @@
           <button type="button" id="vat-exc" aria-pressed="false">Excluding VAT</button>
         </div>
       </div>
+      <div class="ctrl">
+        <label for="usage-off">Off-peak use a year</label>
+        <input type="number" id="usage-off" min="0" step="50" value="2700">
+        <span class="unit">kWh charged overnight</span>
+      </div>
+      <div class="ctrl">
+        <label for="usage-peak">Peak use a year</label>
+        <input type="number" id="usage-peak" min="0" step="50" value="1800">
+        <span class="unit">kWh the rest of the day</span>
+      </div>
       <p class="vat-hint" id="vat-hint"></p>
+      <div class="checkrow">
+        <input type="checkbox" id="only-open" checked>
+        <label for="only-open" style="font-size:0.84rem;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted);">Only show tariffs anyone can join (hides the Pod Point and employee-only tariffs)</label>
+      </div>
     </div>
+
+    <div class="result" id="result"></div>
 
     <p class="caption" id="caption"></p>
 
@@ -130,9 +160,10 @@
         <thead>
           <tr>
             <th scope="col">Tariff</th>
-            <th scope="col" class="sortable" data-sort="off" aria-sort="ascending">Off-peak <span class="arrow">&#9650;</span></th>
+            <th scope="col" class="sortable" data-sort="off">Off-peak <span class="arrow">&#9650;</span></th>
             <th scope="col" class="sortable" data-sort="peak">Peak <span class="arrow">&#9650;</span></th>
             <th scope="col" class="sortable" data-sort="sc">Standing charge <span class="arrow">&#9650;</span></th>
+            <th scope="col" class="sortable" data-sort="cost" aria-sort="ascending">Cost a year <span class="arrow">&#9650;</span></th>
             <th scope="col">Term</th>
             <th scope="col">Exit fee</th>
             <th scope="col">Who can get it</th>
@@ -165,7 +196,7 @@ const VAT_ZERO_END  = new Date('2027-04-01T00:00:00');
 function vatRateNow(now) { now = now || new Date(); return (now >= VAT_ZERO_FROM && now < VAT_ZERO_END) ? 0 : 5; }
 
 let includeVat = vatRateNow() === 5;
-let sortKey = 'off';
+let sortKey = 'cost';
 let sortDir = 1;
 
 const $ = (id) => document.getElementById(id);
@@ -174,12 +205,36 @@ function factor() { return includeVat ? (1 + vatRateNow() / 100) : 1; }
 
 function fmt(v) { return v === null || v === undefined ? '&#8212;' : (v * factor()).toFixed(2); }
 
+function isOpenToAll(t) { return !/Pod Point|employees only/i.test(t.elig); }
+
+function usage(id) {
+  const v = parseFloat($(id).value);
+  return (isNaN(v) || v < 0) ? 0 : v;
+}
+
+function annualCost(r, offKwh, peakKwh) {
+  if (r.off === null || r.peak === null) return null;
+  return ((offKwh * r.off) + (peakKwh * r.peak) + (365 * r.sc)) / 100 * factor();
+}
+
+function money(v) {
+  return '&#163;' + v.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+
 function render() {
   const dno = $('region-select').value;
-  const rows = TARIFFS.filter(t => t.regions[dno]).map(t => {
-    const r = t.regions[dno];
-    return { t: t, sc: r.sc, peak: r.peak, off: r.off };
-  });
+  const offKwh = usage('usage-off');
+  const peakKwh = usage('usage-peak');
+  const openOnly = $('only-open').checked;
+  const rows = TARIFFS
+    .filter(t => t.regions[dno])
+    .filter(t => !openOnly || isOpenToAll(t))
+    .map(t => {
+      const r = t.regions[dno];
+      const row = { t: t, sc: r.sc, peak: r.peak, off: r.off };
+      row.cost = annualCost(row, offKwh, peakKwh);
+      return row;
+    });
   rows.sort((a, b) => {
     const x = a[sortKey], y = b[sortKey];
     if (x === null) return 1;
@@ -189,6 +244,9 @@ function render() {
   const bestOff = Math.min.apply(null, rows.filter(r => r.off !== null).map(r => r.off));
   const bestPeak = Math.min.apply(null, rows.filter(r => r.peak !== null).map(r => r.peak));
   const bestSc = Math.min.apply(null, rows.map(r => r.sc));
+  const byCost = rows.filter(r => r.cost !== null).slice().sort((a, b) => a.cost - b.cost);
+  const bestCost = byCost.length ? byCost[0].cost : null;
+  renderResult(byCost, offKwh, peakKwh);
 
   $('tariff-body').innerHTML = rows.map(r => {
     const t = r.t;
@@ -200,6 +258,7 @@ function render() {
       '<td class="rate' + (r.off === bestOff ? ' best' : '') + '">' + fmt(r.off) + 'p</td>' +
       '<td class="rate' + (r.peak === bestPeak ? ' best' : '') + '">' + fmt(r.peak) + 'p</td>' +
       '<td class="rate' + (r.sc === bestSc ? ' best' : '') + '">' + fmt(r.sc) + 'p</td>' +
+      '<td class="cost' + (r.cost !== null && r.cost === bestCost ? ' best' : '') + '">' + (r.cost === null ? '&#8212;' : money(r.cost)) + '</td>' +
       '<td>' + term + '</td>' +
       '<td' + (t.exit ? ' class="warnflag"' : '') + '>' + exit + '</td>' +
       '<td><span class="elig">' + t.elig + '</span></td>' +
@@ -217,6 +276,35 @@ function render() {
     : 'VAT on domestic electricity in Great Britain is 5%, dropping to 0% from 1 October 2026 to 31 March 2027 &#8212; during that window the excluding-VAT figures are what you actually pay.';
 }
 
+function renderResult(byCost, offKwh, peakKwh) {
+  const el = $('result');
+  if (!byCost.length || (offKwh + peakKwh) === 0) {
+    el.innerHTML = '<div class="rlabel">Cheapest for your usage</div>' +
+      '<div class="rsub">Enter your yearly off-peak and peak usage above and the cheapest tariff for that split will show here.</div>';
+    return;
+  }
+  const win = byCost[0];
+  const next = byCost[1];
+  const saving = next ? next.cost - win.cost : 0;
+  const total = offKwh + peakKwh;
+  const share = total ? Math.round(offKwh / total * 100) : 0;
+  el.innerHTML =
+    '<div class="rlabel">Cheapest for your usage</div>' +
+    '<h2>' + win.t.supplier + ' &#183; ' + win.t.name + '</h2>' +
+    '<div class="rcost">' + money(win.cost) + ' <span style="font-size:0.95rem;font-weight:600;color:var(--muted);">a year</span></div>' +
+    '<p class="rsub">Based on ' + offKwh.toLocaleString('en-GB') + ' kWh off-peak and ' +
+      peakKwh.toLocaleString('en-GB') + ' kWh peak (' + share + '% of your use overnight), ' +
+      (includeVat ? 'including VAT at ' + vatRateNow() + '%' : 'excluding VAT') +
+      '. Energy and standing charge only &#8212; exit fees and switching credit are not counted.' +
+      (next ? ' That is ' + money(saving) + ' a year less than the next best, ' + next.t.name + '.' : '') +
+      (win.t.term ? '' : ' <strong>Note:</strong> this is a variable tariff, so its rates can change at any time &#8212; the fixed tariffs below hold their price for the term.') +
+      (win.t.exit ? ' Leaving early costs &#163;' + win.t.exit.toFixed(0) + '.' : '') +
+      (isOpenToAll(win.t) ? '' : ' <strong>Check you qualify:</strong> ' + win.t.elig + '.') +
+    '</p>' +
+    (byCost.length > 1 ? '<div class="runners">' + byCost.slice(1, 4).map(r =>
+      '<span class="runner"><b>' + r.t.name + '</b> ' + money(r.cost) + '</span>').join('') + '</div>' : '');
+}
+
 function setVat(inc) {
   includeVat = inc;
   $('vat-inc').setAttribute('aria-pressed', String(inc));
@@ -227,6 +315,9 @@ function setVat(inc) {
 $('vat-inc').addEventListener('click', () => setVat(true));
 $('vat-exc').addEventListener('click', () => setVat(false));
 $('region-select').addEventListener('change', render);
+$('usage-off').addEventListener('input', render);
+$('usage-peak').addEventListener('input', render);
+$('only-open').addEventListener('change', render);
 
 document.querySelectorAll('th.sortable').forEach(th => {
   th.addEventListener('click', () => {
