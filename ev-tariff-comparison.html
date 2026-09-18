@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Every UK EV Tariff Compared | EV Tariff Guide</title>
+<meta name="description" content="Peak, off-peak and standing charges for every EV tariff from Octopus, EDF and E.ON Next, by region, straight from supplier APIs.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="author" content="Steve Kirtley">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f9fc; --white: #ffffff; --border: #e4e9f0;
+    --text: #1a2332; --muted: #5e7085; --light: #98a6b5;
+    --oct: #e8341c; --oct-light: #fff4f2;
+    --edf: #0072ce; --edf-light: #eff6ff;
+    --eon: #c8102e; --eon-light: #fff3f5;
+    --green: #059669; --green-light: #ecfdf5; --green-border: #a7f3d0;
+    --amber: #b45309; --amber-light: #fffbeb; --amber-border: #fde68a;
+    --teal: #0ea5e9;
+    --radius: 14px; --radius-sm: 8px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04);
+    --display: 'Plus Jakarta Sans', sans-serif; --body: 'Inter', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--body); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  a { color: var(--edf); }
+
+  nav { background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  nav .inner { max-width: 1040px; margin: 0 auto; padding: 14px 24px; }
+  nav .logo { font-family: var(--display); font-size: 0.95rem; font-weight: 700; color: var(--text); text-decoration: none; }
+
+  header { background: linear-gradient(140deg, #eef6ff 0%, #e8f3fe 40%, #edfaf4 100%); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+  .eyebrow { display: inline-flex; gap: 6px; background: var(--green-light); border: 1px solid var(--green-border); color: var(--green); font-size: 0.75rem; font-weight: 600; padding: 4px 14px; border-radius: 20px; margin-bottom: 18px; }
+  h1 { font-family: var(--display); font-size: clamp(1.8rem, 4.5vw, 2.6rem); font-weight: 800; line-height: 1.12; letter-spacing: -0.02em; margin-bottom: 14px; text-wrap: balance; }
+  .sub { font-size: 1.02rem; color: var(--muted); max-width: 62ch; }
+
+  section { padding: 36px 0 56px; }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: flex-end; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; box-shadow: var(--shadow-sm); margin-bottom: 8px; }
+  .ctrl { display: flex; flex-direction: column; gap: 6px; }
+  .ctrl label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .ctrl select { font-family: var(--body); font-size: 0.9rem; padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--white); color: var(--text); min-width: 210px; }
+
+  .vat-switch { display: inline-flex; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
+  .vat-switch button { font-family: var(--body); font-size: 0.85rem; font-weight: 600; padding: 9px 16px; border: none; background: var(--white); color: var(--muted); cursor: pointer; }
+  .vat-switch button[aria-pressed="true"] { background: var(--edf); color: #fff; }
+  .vat-switch button:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
+  .vat-hint { font-size: 0.78rem; color: var(--muted); flex-basis: 100%; }
+
+  .scroll { overflow-x: auto; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+  table { border-collapse: collapse; width: 100%; min-width: 800px; font-variant-numeric: tabular-nums; }
+  thead th { font-family: var(--display); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 14px 14px; text-align: right; border-bottom: 2px solid var(--border); white-space: nowrap; }
+  thead th:first-child { text-align: left; }
+  thead th.sortable { cursor: pointer; user-select: none; }
+  thead th.sortable:hover { color: var(--text); }
+  thead th .arrow { opacity: 0.35; font-size: 0.7rem; }
+  thead th[aria-sort] .arrow { opacity: 1; color: var(--edf); }
+  tbody td { padding: 12px 14px; text-align: right; font-size: 0.9rem; border-bottom: 1px solid #f0f4f8; }
+  tbody td:first-child { text-align: left; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: #fbfcfe; }
+  .tname { font-weight: 600; color: var(--text); display: block; }
+  .chip { display: inline-block; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 20px; margin-bottom: 3px; }
+  .chip.oct { background: var(--oct-light); color: var(--oct); }
+  .chip.edf { background: var(--edf-light); color: var(--edf); }
+  .chip.eon { background: var(--eon-light); color: var(--eon); }
+  .rate { font-weight: 600; }
+  .best { color: var(--green); font-weight: 700; }
+  .elig { font-size: 0.76rem; color: var(--muted); line-height: 1.45; max-width: 24ch; display: inline-block; text-align: right; }
+  .warnflag { color: var(--amber); font-weight: 600; }
+
+  .note { background: var(--amber-light); border: 1px solid var(--amber-border); border-radius: var(--radius-sm); padding: 14px 18px; font-size: 0.82rem; color: #92400e; margin-top: 18px; line-height: 1.6; }
+  .meta { font-size: 0.78rem; color: var(--light); margin-top: 16px; line-height: 1.6; }
+  .caption { font-size: 0.85rem; color: var(--muted); margin: 14px 0 10px; }
+  footer { border-top: 1px solid var(--border); padding: 28px 0 44px; font-size: 0.8rem; color: var(--light); }
+  @media (max-width: 600px) { .container { padding: 0 16px; } nav .inner { padding: 14px 16px; } header { padding: 34px 0 30px; } .ctrl select { min-width: 0; width: 100%; } .ctrl { width: 100%; } }
+</style>
+</head>
+<body>
+
+<nav><div class="inner"><a class="logo" href="/">&#9889; EV Tariff Guide</a></div></nav>
+
+<header>
+  <div class="container">
+    <div class="eyebrow">Rates read from supplier APIs &#183; 18 September 2026</div>
+    <h1>Every UK EV tariff, side by side</h1>
+    <p class="sub">Peak, off-peak and standing charges for all current EV tariffs from Octopus, EDF and E.ON Next. Pick your region and choose whether to show prices with or without VAT.</p>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <div class="controls">
+      <div class="ctrl">
+        <label for="region-select">Region</label>
+        <select id="region-select">
+        <option value="EA">Eastern England</option>
+        <option value="EM">East Midlands</option>
+        <option value="LO">London</option>
+        <option value="MW">Merseyside & N. Wales</option>
+        <option value="NO">North East</option>
+        <option value="NW">North West</option>
+        <option value="NS">North Scotland</option>
+        <option value="SC">South Scotland</option>
+        <option value="SE">South East</option>
+        <option value="SO">Southern</option>
+        <option value="WA" selected>South Wales</option>
+        <option value="SW">South West</option>
+        <option value="WM">West Midlands</option>
+        <option value="YO">Yorkshire</option>
+        </select>
+      </div>
+      <div class="ctrl">
+        <label for="vat-inc">VAT</label>
+        <div class="vat-switch" role="group" aria-label="Include or exclude VAT">
+          <button type="button" id="vat-inc" aria-pressed="true">Including VAT</button>
+          <button type="button" id="vat-exc" aria-pressed="false">Excluding VAT</button>
+        </div>
+      </div>
+      <p class="vat-hint" id="vat-hint"></p>
+    </div>
+
+    <p class="caption" id="caption"></p>
+
+    <div class="scroll">
+      <table id="tariff-table">
+        <thead>
+          <tr>
+            <th scope="col">Tariff</th>
+            <th scope="col" class="sortable" data-sort="off" aria-sort="ascending">Off-peak <span class="arrow">&#9650;</span></th>
+            <th scope="col" class="sortable" data-sort="peak">Peak <span class="arrow">&#9650;</span></th>
+            <th scope="col" class="sortable" data-sort="sc">Standing charge <span class="arrow">&#9650;</span></th>
+            <th scope="col">Term</th>
+            <th scope="col">Exit fee</th>
+            <th scope="col">Who can get it</th>
+          </tr>
+        </thead>
+        <tbody id="tariff-body"></tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong>Read the whole row, not just the off-peak rate.</strong> A low overnight rate can be paired with a high standing charge or peak rate, and some of these tariffs need particular hardware. The Pod Point Plug &amp; Power tariff bundles the cost of a charger into its standing charge, which is why that figure is roughly double everyone else&#8217;s.
+    </div>
+
+    <p class="meta" id="meta"></p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    Written by Steve Kirtley &#183; Rates are indicative and baked in at the time shown above &#8212; always verify on the supplier&#8217;s own site before switching.
+  </div>
+</footer>
+
+<script>
+const TARIFFS = [{"supplier":"EDF","name":"Go Electric 12m","code":"EDF_EV_FIX_GOELEC_12M_V3_HH","term":12,"exit":75.0,"elig":"Any EV or charger","regions":{"EA":{"sc":56.99,"peak":35.92,"off":6.66,"prevat_same":true},"EM":{"sc":56.61,"peak":34.78,"off":6.66,"prevat_same":true},"LO":{"sc":48.07,"peak":37.21,"off":6.66,"prevat_same":true},"MW":{"sc":72.81,"peak":34.8,"off":6.66,"prevat_same":true},"WM":{"sc":62.38,"peak":34.17,"off":6.66,"prevat_same":true},"NO":{"sc":66.74,"peak":33.4,"off":6.66,"prevat_same":true},"NW":{"sc":50.83,"peak":36.7,"off":6.66,"prevat_same":true},"SO":{"sc":52.96,"peak":36.37,"off":6.66,"prevat_same":true},"SE":{"sc":57.47,"peak":36.1,"off":6.66,"prevat_same":true},"WA":{"sc":60.56,"peak":35.34,"off":6.66,"prevat_same":true},"SW":{"sc":60.74,"peak":35.35,"off":6.66,"prevat_same":true},"YO":{"sc":66.82,"peak":33.52,"off":6.66,"prevat_same":true},"SC":{"sc":66.56,"peak":34.04,"off":6.66,"prevat_same":true},"NS":{"sc":60.29,"peak":35.19,"off":6.66,"prevat_same":true}}},{"supplier":"EDF","name":"Go Electric 18m","code":"EDF_EV_FIX_GOELEC_18M_V2_HH","term":18,"exit":100.0,"elig":"Any EV or charger","regions":{"EA":{"sc":56.99,"peak":34.02,"off":6.66,"prevat_same":true},"EM":{"sc":56.61,"peak":32.88,"off":6.66,"prevat_same":true},"LO":{"sc":48.07,"peak":35.3,"off":6.66,"prevat_same":true},"MW":{"sc":72.81,"peak":32.9,"off":6.66,"prevat_same":true},"WM":{"sc":62.38,"peak":32.27,"off":6.66,"prevat_same":true},"NO":{"sc":66.74,"peak":31.49,"off":6.66,"prevat_same":true},"NW":{"sc":50.83,"peak":34.8,"off":6.66,"prevat_same":true},"SO":{"sc":52.96,"peak":34.46,"off":6.66,"prevat_same":true},"SE":{"sc":57.47,"peak":34.2,"off":6.66,"prevat_same":true},"WA":{"sc":60.56,"peak":33.44,"off":6.66,"prevat_same":true},"SW":{"sc":60.74,"peak":33.44,"off":6.66,"prevat_same":true},"YO":{"sc":66.82,"peak":31.62,"off":6.66,"prevat_same":true},"SC":{"sc":66.56,"peak":32.14,"off":6.66,"prevat_same":true},"NS":{"sc":60.29,"peak":33.28,"off":6.66,"prevat_same":true}}},{"supplier":"EDF","name":"Pod Power 12m","code":"EDF_PODPOINT_EV_FIX_POWER_12M_V3_HH","term":12,"exit":75.0,"elig":"Pod Point charger required","regions":{"EA":{"sc":56.99,"peak":35.92,"off":6.18,"prevat_same":true},"EM":{"sc":56.61,"peak":34.78,"off":6.18,"prevat_same":true},"LO":{"sc":48.07,"peak":37.21,"off":6.18,"prevat_same":true},"MW":{"sc":72.81,"peak":34.8,"off":6.18,"prevat_same":true},"WM":{"sc":62.38,"peak":34.17,"off":6.18,"prevat_same":true},"NO":{"sc":66.74,"peak":33.4,"off":6.18,"prevat_same":true},"NW":{"sc":50.83,"peak":36.7,"off":6.18,"prevat_same":true},"SO":{"sc":52.96,"peak":36.37,"off":6.18,"prevat_same":true},"SE":{"sc":57.47,"peak":36.1,"off":6.18,"prevat_same":true},"WA":{"sc":60.56,"peak":35.34,"off":6.18,"prevat_same":true},"SW":{"sc":60.74,"peak":35.35,"off":6.18,"prevat_same":true},"YO":{"sc":66.82,"peak":33.52,"off":6.18,"prevat_same":true},"SC":{"sc":66.56,"peak":34.04,"off":6.18,"prevat_same":true},"NS":{"sc":60.29,"peak":35.19,"off":6.18,"prevat_same":true}}},{"supplier":"EDF","name":"Pod Power 18m","code":"EDF_PODPOINT_EV_FIX_POWER_18M_V2_HH","term":18,"exit":100.0,"elig":"Pod Point charger required","regions":{"EA":{"sc":56.99,"peak":34.02,"off":6.18,"prevat_same":true},"EM":{"sc":56.61,"peak":32.88,"off":6.18,"prevat_same":true},"LO":{"sc":48.07,"peak":35.3,"off":6.18,"prevat_same":true},"MW":{"sc":72.81,"peak":32.9,"off":6.18,"prevat_same":true},"WM":{"sc":62.38,"peak":32.27,"off":6.18,"prevat_same":true},"NO":{"sc":66.74,"peak":31.49,"off":6.18,"prevat_same":true},"NW":{"sc":50.83,"peak":34.8,"off":6.18,"prevat_same":true},"SO":{"sc":52.96,"peak":34.46,"off":6.18,"prevat_same":true},"SE":{"sc":57.47,"peak":34.2,"off":6.18,"prevat_same":true},"WA":{"sc":60.56,"peak":33.44,"off":6.18,"prevat_same":true},"SW":{"sc":60.74,"peak":33.44,"off":6.18,"prevat_same":true},"YO":{"sc":66.82,"peak":31.62,"off":6.18,"prevat_same":true},"SC":{"sc":66.56,"peak":32.14,"off":6.18,"prevat_same":true},"NS":{"sc":60.29,"peak":33.28,"off":6.18,"prevat_same":true}}},{"supplier":"EDF","name":"Pod Point Plug &amp; Power 24m","code":"EDF_PODPOINT_EV_PANDP_FIX_24M_V3_HH","term":24,"exit":125.0,"elig":"Pod Point charger bundle","regions":{"EA":{"sc":122.22,"peak":35.92,"off":6.18,"prevat_same":true},"EM":{"sc":121.84,"peak":34.78,"off":6.18,"prevat_same":true},"LO":{"sc":113.3,"peak":37.21,"off":6.18,"prevat_same":true},"MW":{"sc":138.04,"peak":34.8,"off":6.18,"prevat_same":true},"WM":{"sc":127.62,"peak":34.17,"off":6.18,"prevat_same":true},"NO":{"sc":131.97,"peak":33.4,"off":6.18,"prevat_same":true},"NW":{"sc":116.06,"peak":36.7,"off":6.18,"prevat_same":true},"SO":{"sc":118.2,"peak":36.37,"off":6.18,"prevat_same":true},"SE":{"sc":122.7,"peak":36.1,"off":6.18,"prevat_same":true},"WA":{"sc":125.8,"peak":35.34,"off":6.18,"prevat_same":true},"SW":{"sc":125.97,"peak":35.35,"off":6.18,"prevat_same":true},"YO":{"sc":132.06,"peak":33.52,"off":6.18,"prevat_same":true},"SC":{"sc":131.8,"peak":34.04,"off":6.18,"prevat_same":true},"NS":{"sc":125.52,"peak":35.19,"off":6.18,"prevat_same":true}}},{"supplier":"EDF","name":"Engage EV 12m","code":"EDF_ENGAGE_EV_FIX_12M_V2_HH","term":12,"exit":0.0,"elig":"EDF employees only","regions":{"EA":{"sc":51.38,"peak":31.18,"off":6.66,"prevat_same":true},"EM":{"sc":51.05,"peak":30.01,"off":6.66,"prevat_same":true},"LO":{"sc":42.65,"peak":32.42,"off":6.66,"prevat_same":true},"MW":{"sc":67.39,"peak":30.06,"off":6.66,"prevat_same":true},"WM":{"sc":56.87,"peak":29.38,"off":6.66,"prevat_same":true},"NO":{"sc":61.23,"peak":28.64,"off":6.66,"prevat_same":true},"NW":{"sc":45.34,"peak":31.82,"off":6.66,"prevat_same":true},"SO":{"sc":47.33,"peak":31.81,"off":6.66,"prevat_same":true},"SE":{"sc":51.85,"peak":31.39,"off":6.66,"prevat_same":true},"WA":{"sc":55.09,"peak":30.59,"off":6.66,"prevat_same":true},"SW":{"sc":55.13,"peak":30.64,"off":6.66,"prevat_same":true},"YO":{"sc":61.31,"peak":28.62,"off":6.66,"prevat_same":true},"SC":{"sc":61.12,"peak":29.25,"off":6.66,"prevat_same":true},"NS":{"sc":54.8,"peak":30.72,"off":6.66,"prevat_same":true}}},{"supplier":"EDF","name":"Engage EV 18m","code":"EDF_ENGAGE_EV_FIX_18M_V2_HH","term":18,"exit":0.0,"elig":"EDF employees only","regions":{"EA":{"sc":56.99,"peak":33.6,"off":6.66,"prevat_same":true},"EM":{"sc":56.61,"peak":32.46,"off":6.66,"prevat_same":true},"LO":{"sc":48.07,"peak":34.89,"off":6.66,"prevat_same":true},"MW":{"sc":72.81,"peak":32.48,"off":6.66,"prevat_same":true},"WM":{"sc":62.38,"peak":31.86,"off":6.66,"prevat_same":true},"NO":{"sc":66.74,"peak":31.08,"off":6.66,"prevat_same":true},"NW":{"sc":50.83,"peak":34.39,"off":6.66,"prevat_same":true},"SO":{"sc":52.96,"peak":34.05,"off":6.66,"prevat_same":true},"SE":{"sc":57.47,"peak":33.79,"off":6.66,"prevat_same":true},"WA":{"sc":60.56,"peak":33.03,"off":6.66,"prevat_same":true},"SW":{"sc":60.74,"peak":33.03,"off":6.66,"prevat_same":true},"YO":{"sc":66.82,"peak":31.21,"off":6.66,"prevat_same":true},"SC":{"sc":66.56,"peak":31.72,"off":6.66,"prevat_same":true},"NS":{"sc":60.29,"peak":32.87,"off":6.66,"prevat_same":true}}},{"supplier":"E.ON Next","name":"Next Drive Smart","code":"NEXT_DRIVE_SMART_V7_4","term":12,"exit":0.0,"elig":"Smart meter + compatible EV/charger","regions":{"EA":{"sc":57.14,"peak":33.61,"off":8.1,"prevat_same":true},"EM":{"sc":57.14,"peak":32.36,"off":8.1,"prevat_same":true},"LO":{"sc":57.14,"peak":33.6,"off":8.1,"prevat_same":true},"MW":{"sc":57.14,"peak":34.86,"off":8.1,"prevat_same":true},"WM":{"sc":57.14,"peak":32.6,"off":8.1,"prevat_same":true},"NO":{"sc":57.14,"peak":32.46,"off":8.1,"prevat_same":true},"NW":{"sc":57.14,"peak":33.49,"off":8.1,"prevat_same":true},"SO":{"sc":57.14,"peak":33.47,"off":8.1,"prevat_same":true},"SE":{"sc":57.14,"peak":33.88,"off":8.1,"prevat_same":true},"WA":{"sc":57.14,"peak":33.55,"off":8.1,"prevat_same":true},"SW":{"sc":57.14,"peak":33.58,"off":8.1,"prevat_same":true},"YO":{"sc":57.14,"peak":32.6,"off":8.1,"prevat_same":true},"SC":{"sc":57.14,"peak":33.11,"off":8.1,"prevat_same":true},"NS":{"sc":57.14,"peak":33.35,"off":8.1,"prevat_same":true}}},{"supplier":"E.ON Next","name":"Next Drive Fixed","code":"NEXT_DRIVE_FIXED_V32","term":12,"exit":0.0,"elig":"Smart meter required","regions":{"EA":{"sc":57.14,"peak":34.61,"off":9.52,"prevat_same":true},"EM":{"sc":57.14,"peak":33.36,"off":9.52,"prevat_same":true},"LO":{"sc":57.14,"peak":34.6,"off":9.52,"prevat_same":true},"MW":{"sc":57.14,"peak":35.86,"off":9.52,"prevat_same":true},"WM":{"sc":57.14,"peak":33.6,"off":9.52,"prevat_same":true},"NO":{"sc":57.14,"peak":33.46,"off":9.52,"prevat_same":true},"NW":{"sc":57.14,"peak":34.49,"off":9.52,"prevat_same":true},"SO":{"sc":57.14,"peak":34.47,"off":9.52,"prevat_same":true},"SE":{"sc":57.14,"peak":34.88,"off":9.52,"prevat_same":true},"WA":{"sc":57.14,"peak":34.55,"off":9.52,"prevat_same":true},"SW":{"sc":57.14,"peak":34.58,"off":9.52,"prevat_same":true},"YO":{"sc":57.14,"peak":33.6,"off":9.52,"prevat_same":true},"SC":{"sc":57.14,"peak":34.11,"off":9.52,"prevat_same":true},"NS":{"sc":57.14,"peak":34.35,"off":9.52,"prevat_same":true}}},{"supplier":"E.ON Next","name":"Next Drive Lite","code":"NEXT_DRIVE_LITE_V3_3","term":12,"exit":0.0,"elig":"Smart meter required","regions":{"EA":{"sc":54.48,"peak":25.02,"off":13.33,"prevat_same":true},"EM":{"sc":54.48,"peak":23.8,"off":13.33,"prevat_same":true},"LO":{"sc":54.48,"peak":24.99,"off":13.33,"prevat_same":true},"MW":{"sc":54.48,"peak":26.24,"off":13.33,"prevat_same":true},"WM":{"sc":54.48,"peak":24.03,"off":13.33,"prevat_same":true},"NO":{"sc":54.48,"peak":23.92,"off":13.33,"prevat_same":true},"NW":{"sc":54.48,"peak":24.78,"off":13.33,"prevat_same":true},"SO":{"sc":54.48,"peak":25.06,"off":13.33,"prevat_same":true},"SE":{"sc":54.48,"peak":25.3,"off":13.33,"prevat_same":true},"WA":{"sc":54.48,"peak":24.98,"off":13.33,"prevat_same":true},"SW":{"sc":54.48,"peak":25.03,"off":13.33,"prevat_same":true},"YO":{"sc":54.48,"peak":24.0,"off":13.33,"prevat_same":true},"SC":{"sc":54.48,"peak":24.52,"off":13.33,"prevat_same":true},"NS":{"sc":54.48,"peak":25.06,"off":13.33,"prevat_same":true}}},{"supplier":"Octopus","name":"Octopus Go","code":"GO-FIX-12M-26-08-19","term":12,"exit":0.0,"elig":"Any EV or charger","regions":{"EA":{"sc":51.3256,"peak":33.3832,"off":9.0476,"prevat_same":false},"EM":{"sc":50.2489,"peak":31.4724,"off":9.0476,"prevat_same":false},"LO":{"sc":42.0215,"peak":31.781,"off":9.0476,"prevat_same":false},"MW":{"sc":66.3804,"peak":34.7209,"off":9.0476,"prevat_same":false},"WM":{"sc":56.238,"peak":31.1931,"off":9.0476,"prevat_same":false},"NO":{"sc":60.2078,"peak":31.5164,"off":9.0476,"prevat_same":false},"NW":{"sc":44.4133,"peak":32.8393,"off":9.0476,"prevat_same":false},"SO":{"sc":47.0544,"peak":32.8099,"off":9.0476,"prevat_same":false},"SE":{"sc":51.8626,"peak":33.5891,"off":9.0476,"prevat_same":false},"WA":{"sc":53.8681,"peak":32.957,"off":9.0476,"prevat_same":false},"SW":{"sc":55.2736,"peak":33.4715,"off":9.0476,"prevat_same":false},"YO":{"sc":60.4188,"peak":30.855,"off":9.0476,"prevat_same":false},"SC":{"sc":61.4544,"peak":32.2661,"off":9.0476,"prevat_same":false},"NS":{"sc":55.2325,"peak":33.545,"off":9.0476,"prevat_same":false}}},{"supplier":"Octopus","name":"Octopus Go (variable)","code":"GO-VAR-22-10-14","term":null,"exit":0.0,"elig":"Any EV or charger","regions":{"EA":{"sc":51.3256,"peak":29.6946,"off":8.2143,"prevat_same":false},"EM":{"sc":50.2489,"peak":28.0155,"off":8.2143,"prevat_same":false},"LO":{"sc":42.0215,"peak":29.5154,"off":8.2143,"prevat_same":false},"MW":{"sc":66.3804,"peak":30.7397,"off":8.2143,"prevat_same":false},"WM":{"sc":56.238,"peak":28.3164,"off":8.2143,"prevat_same":false},"NO":{"sc":60.2078,"peak":28.3072,"off":8.2143,"prevat_same":false},"NW":{"sc":44.4133,"peak":29.2391,"off":8.2143,"prevat_same":false},"SO":{"sc":47.0544,"peak":29.7953,"off":8.2143,"prevat_same":false},"SE":{"sc":51.8626,"peak":29.887,"off":8.2143,"prevat_same":false},"WA":{"sc":53.8681,"peak":29.4911,"off":8.2143,"prevat_same":false},"SW":{"sc":55.2736,"peak":29.6831,"off":8.2143,"prevat_same":false},"YO":{"sc":60.4188,"peak":28.0422,"off":8.2143,"prevat_same":false},"SC":{"sc":61.4544,"peak":28.4369,"off":8.2143,"prevat_same":false},"NS":{"sc":55.2325,"peak":29.4364,"off":8.2143,"prevat_same":false}}},{"supplier":"Octopus","name":"Intelligent Octopus Go","code":"IOG-SMB-FIX-12M-26-09-02","term":12,"exit":0.0,"elig":"Compatible EV or charger required","regions":{"EA":{"sc":51.3256,"peak":33.6404,"off":7.619,"prevat_same":false},"EM":{"sc":50.2489,"peak":31.7296,"off":7.619,"prevat_same":false},"LO":{"sc":42.0215,"peak":32.0382,"off":7.619,"prevat_same":false},"MW":{"sc":66.3804,"peak":34.9781,"off":7.619,"prevat_same":false},"WM":{"sc":56.238,"peak":31.4503,"off":7.619,"prevat_same":false},"NO":{"sc":60.2078,"peak":31.7736,"off":7.619,"prevat_same":false},"NW":{"sc":44.4133,"peak":33.0965,"off":7.619,"prevat_same":false},"SO":{"sc":47.0544,"peak":33.0671,"off":7.619,"prevat_same":false},"SE":{"sc":51.8626,"peak":33.8463,"off":7.619,"prevat_same":false},"WA":{"sc":53.8681,"peak":33.2142,"off":7.619,"prevat_same":false},"SW":{"sc":55.2736,"peak":33.7287,"off":7.619,"prevat_same":false},"YO":{"sc":60.4188,"peak":31.1122,"off":7.619,"prevat_same":false},"SC":{"sc":61.4544,"peak":32.5233,"off":7.619,"prevat_same":false},"NS":{"sc":55.2325,"peak":33.8022,"off":7.619,"prevat_same":false}}},{"supplier":"Octopus","name":"Intelligent Go EV Saver","code":"IOG-SMB-FIX-OEV-12M-26-09-02","term":12,"exit":0.0,"elig":"Compatible EV or charger required","regions":{"EA":{"sc":51.3256,"peak":33.6404,"off":6.6667,"prevat_same":false},"EM":{"sc":50.2489,"peak":31.7296,"off":6.6667,"prevat_same":false},"LO":{"sc":42.0215,"peak":32.0382,"off":6.6667,"prevat_same":false},"MW":{"sc":66.3804,"peak":34.9781,"off":6.6667,"prevat_same":false},"WM":{"sc":56.238,"peak":31.4503,"off":6.6667,"prevat_same":false},"NO":{"sc":60.2078,"peak":31.7736,"off":6.6667,"prevat_same":false},"NW":{"sc":44.4133,"peak":33.0965,"off":6.6667,"prevat_same":false},"SO":{"sc":47.0544,"peak":33.0671,"off":6.6667,"prevat_same":false},"SE":{"sc":51.8626,"peak":33.8463,"off":6.6667,"prevat_same":false},"WA":{"sc":53.8681,"peak":33.2142,"off":6.6667,"prevat_same":false},"SW":{"sc":55.2736,"peak":33.7287,"off":6.6667,"prevat_same":false},"YO":{"sc":60.4188,"peak":31.1122,"off":6.6667,"prevat_same":false},"SC":{"sc":61.4544,"peak":32.5233,"off":6.6667,"prevat_same":false},"NS":{"sc":55.2325,"peak":33.8022,"off":6.6667,"prevat_same":false}}}];
+const REGION_NAMES = {"EA":"Eastern England","EM":"East Midlands","LO":"London","MW":"Merseyside & N. Wales","NO":"North East","NW":"North West","NS":"North Scotland","SC":"South Scotland","SE":"South East","SO":"Southern","WA":"South Wales","SW":"South West","WM":"West Midlands","YO":"Yorkshire"};
+
+const VAT_ZERO_FROM = new Date('2026-10-01T00:00:00');
+const VAT_ZERO_END  = new Date('2027-04-01T00:00:00');
+function vatRateNow(now) { now = now || new Date(); return (now >= VAT_ZERO_FROM && now < VAT_ZERO_END) ? 0 : 5; }
+
+let includeVat = vatRateNow() === 5;
+let sortKey = 'off';
+let sortDir = 1;
+
+const $ = (id) => document.getElementById(id);
+
+function factor() { return includeVat ? (1 + vatRateNow() / 100) : 1; }
+
+function fmt(v) { return v === null || v === undefined ? '&#8212;' : (v * factor()).toFixed(2); }
+
+function render() {
+  const dno = $('region-select').value;
+  const rows = TARIFFS.filter(t => t.regions[dno]).map(t => {
+    const r = t.regions[dno];
+    return { t: t, sc: r.sc, peak: r.peak, off: r.off };
+  });
+  rows.sort((a, b) => {
+    const x = a[sortKey], y = b[sortKey];
+    if (x === null) return 1;
+    if (y === null) return -1;
+    return (x - y) * sortDir;
+  });
+  const bestOff = Math.min.apply(null, rows.filter(r => r.off !== null).map(r => r.off));
+  const bestPeak = Math.min.apply(null, rows.filter(r => r.peak !== null).map(r => r.peak));
+  const bestSc = Math.min.apply(null, rows.map(r => r.sc));
+
+  $('tariff-body').innerHTML = rows.map(r => {
+    const t = r.t;
+    const cls = t.supplier === 'Octopus' ? 'oct' : (t.supplier === 'EDF' ? 'edf' : 'eon');
+    const term = t.term ? t.term + ' months' : 'Variable';
+    const exit = t.exit ? '&#163;' + t.exit.toFixed(0) : 'None';
+    return '<tr>' +
+      '<td><span class="chip ' + cls + '">' + t.supplier + '</span><span class="tname">' + t.name + '</span></td>' +
+      '<td class="rate' + (r.off === bestOff ? ' best' : '') + '">' + fmt(r.off) + 'p</td>' +
+      '<td class="rate' + (r.peak === bestPeak ? ' best' : '') + '">' + fmt(r.peak) + 'p</td>' +
+      '<td class="rate' + (r.sc === bestSc ? ' best' : '') + '">' + fmt(r.sc) + 'p</td>' +
+      '<td>' + term + '</td>' +
+      '<td' + (t.exit ? ' class="warnflag"' : '') + '>' + exit + '</td>' +
+      '<td><span class="elig">' + t.elig + '</span></td>' +
+      '</tr>';
+  }).join('');
+
+  $('caption').innerHTML = rows.length + ' tariffs in <strong>' + REGION_NAMES[dno] +
+    '</strong> &#183; unit rates in p/kWh, standing charge in p/day &#183; ' +
+    (includeVat ? 'including VAT at ' + vatRateNow() + '%' : 'excluding VAT') +
+    ' &#183; green marks the lowest in each column.';
+
+  const zero = vatRateNow() === 0;
+  $('vat-hint').innerHTML = zero
+    ? 'VAT on domestic electricity in Great Britain is currently 0%, so both views show the same figures until it returns to 5% on 1 April 2027.'
+    : 'VAT on domestic electricity in Great Britain is 5%, dropping to 0% from 1 October 2026 to 31 March 2027 &#8212; during that window the excluding-VAT figures are what you actually pay.';
+}
+
+function setVat(inc) {
+  includeVat = inc;
+  $('vat-inc').setAttribute('aria-pressed', String(inc));
+  $('vat-exc').setAttribute('aria-pressed', String(!inc));
+  render();
+}
+
+$('vat-inc').addEventListener('click', () => setVat(true));
+$('vat-exc').addEventListener('click', () => setVat(false));
+$('region-select').addEventListener('change', render);
+
+document.querySelectorAll('th.sortable').forEach(th => {
+  th.addEventListener('click', () => {
+    const k = th.dataset.sort;
+    sortDir = (k === sortKey) ? -sortDir : 1;
+    sortKey = k;
+    document.querySelectorAll('th.sortable').forEach(o => o.removeAttribute('aria-sort'));
+    th.setAttribute('aria-sort', sortDir === 1 ? 'ascending' : 'descending');
+    th.querySelector('.arrow').innerHTML = sortDir === 1 ? '&#9650;' : '&#9660;';
+    render();
+  });
+});
+
+$('meta').innerHTML = 'Octopus rates from their public REST API; EDF and E.ON Next from their Kraken GraphQL APIs. ' +
+  'All three publish excluding VAT, so the including-VAT figures are those multiplied by 1.05 and may differ by up to 0.01p from each supplier&#8217;s own rounding. ' +
+  'Direct debit, domestic, single electricity meter point. Tariffs shown are the current version of each product as at 18 September 2026.';
+
+setVat(includeVat);
+</script>
+</body>
+</html>
