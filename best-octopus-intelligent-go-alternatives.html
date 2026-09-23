@@ -39,7 +39,7 @@
       "name": "How does EDF Go Electric compare to Octopus Intelligent Go?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "EDF Go Electric offers a cheaper off-peak rate (6.99p/kWh vs 8.40p/kWh), a longer overnight window (7 hours vs 6 hours), and no cap on intelligent dispatch. Since EDF's price rise on 18 September 2026 its peak rate and standing charge are higher than Octopus's, so the advantage rests on overnight usage. Octopus Intelligent Go requires a compatible vehicle or charger just to join the tariff, whereas EDF Go Electric is available to anyone — with Smart Charging scheduling as an optional free add-on for compatible vehicles and chargers. Octopus has no exit fee; EDF charges £75 on its 12-month Go Electric tariff, or £100 on the 18-month version, if you leave early."
+        "text": "EDF Go Electric offers a cheaper off-peak rate (6.99p/kWh vs 8.40p/kWh), a longer overnight window (7 hours vs 6 hours), and no cap on intelligent dispatch. EDF withdrew its 18 September rise on 23 September, so its peak rate is now below Octopus's in every region and the standing charges are close. Octopus Intelligent Go requires a compatible vehicle or charger just to join the tariff, whereas EDF Go Electric is available to anyone — with Smart Charging scheduling as an optional free add-on for compatible vehicles and chargers. Octopus has no exit fee; EDF charges £75 on its 12-month Go Electric tariff, or £100 on the 18-month version, if you leave early. Since 23 September the 18-month is also the dearer of the two at peak, so the 12-month is the better pick."
       }
     },
     {
@@ -449,8 +449,8 @@
           <tr>
             <td>Peak / day rate</td>
             <td id="oct-peak">36–40p / kWh (regional — enter postcode)</td>
-            <td id="edf-peak">35–39p / kWh (regional — enter postcode)</td>
-            <td id="edf18-peak">33–37p / kWh (regional — enter postcode)</td>
+            <td class="val-good" id="edf-peak">30–34p / kWh (regional — enter postcode) <span class="winner-badge">✓ Lower</span></td>
+            <td class="val-good" id="edf18-peak">32–36p / kWh (regional — enter postcode)</td>
           </tr>
           <tr>
             <td>Off-peak window</td>
@@ -470,7 +470,7 @@
           <tr>
             <td>Standing charge</td>
             <td class="val-good" id="oct-standing">44–70p/day (regional — enter postcode)</td>
-            <td class="val-warn edf-both" colspan="2" id="edf-standing">50–76p/day (regional — enter postcode)</td>
+            <td class="edf-both" colspan="2" id="edf-standing">45–71p/day (regional — enter postcode)</td>
           </tr>
           <tr>
             <td>Smart Charging</td>
@@ -512,7 +512,7 @@
       </table>
     </div>
 
-    <p class="table-note">* EDF rates pulled 18 September 2026; Octopus rates pulled 21 September 2026. Both suppliers raised prices on 18 September. Octopus: IOG-SMB-FIX-12M-26-09-18 (now a four-rate EV tariff in Octopus's API, with separate EV-device registers). EDF: EDF_EV_FIX_GOELEC_12M_V3_HH (Go Electric 12m v3) and EDF_EV_FIX_GOELEC_18M_V2_HH (Go Electric 18m v2), both introduced 18 September 2026. Octopus off-peak is fixed at 8.40p/kWh in all regions; both EDF tariffs are 6.99p/kWh and share the same standing charge, differing only on peak. EDF raised peak rates by roughly 14% (12m) and 11% (18m) and standing charges by about 10% on 18 September 2026, leaving the off-peak rate untouched. On 18 September 2026 Octopus raised prices too, but in a particular way: they set the new pre-VAT off-peak rate to exactly the old including-VAT rate, in all 14 regions. So from 1 October, when VAT on electricity drops to 0%, you pay the same overnight rate as before the rise &mdash; Octopus keeps the VAT cut rather than passing it on. Until 30 September you pay 5% more than you did. Their peak rate is a genuine increase either way, and their standing charge is slightly lower after the cut. All figures include VAT at 5%. Note that VAT on domestic electricity in Great Britain drops from 5% to 0% between 1 October 2026 and 31 March 2027, which will cut every rate here by about 4.8% — suppliers' own quotes may already be shown at 0%. Rates are baked into this page at time of writing — always verify current rates on each supplier's website before switching.</p>
+    <p class="table-note">* All rates pulled 23 September 2026. Octopus: IOG-SMB-FIX-12M-26-09-18 (now a four-rate EV tariff in Octopus's API, with separate EV-device registers). EDF: EDF_EV_FIX_GOELEC_12M_V2_HH (Go Electric 12m v2, on sale since 21 July) and EDF_EV_FIX_GOELEC_18M_V3_HH (Go Electric 18m v3, introduced 23 September 2026). Octopus off-peak is fixed at 8.40p/kWh in all regions; both EDF tariffs are 6.99p/kWh and share the same standing charge; since 23 September the 18-month is the dearer of the two at peak. EDF's 18 September increase lasted five days: both versions it introduced closed on 23 September. The 12-month tariff has gone back to the pre-rise v2, and the 18-month has been replaced by a cheaper v3, so EDF's peak rates and standing charges are now below where they were before that rise. The off-peak rate has stayed at 6.99p throughout. On 18 September 2026 Octopus raised prices too, but in a particular way: they set the new pre-VAT off-peak rate to exactly the old including-VAT rate, in all 14 regions. So from 1 October, when VAT on electricity drops to 0%, you pay the same overnight rate as before the rise &mdash; Octopus keeps the VAT cut rather than passing it on. Until 30 September you pay 5% more than you did. Their peak rate is a genuine increase either way, and their standing charge is slightly lower after the cut. All figures include VAT at 5%. Note that VAT on domestic electricity in Great Britain drops from 5% to 0% between 1 October 2026 and 31 March 2027, which will cut every rate here by about 4.8% — suppliers' own quotes may already be shown at 0%. Rates are baked into this page at time of writing — always verify current rates on each supplier's website before switching.</p>
   </div>
 </section>
 
@@ -759,27 +759,28 @@
 </footer>
 
 <script>
-// EDF pulled 18 Sep 2026; Octopus pulled 21 Sep 2026 (both raised prices on 18 Sep). ALL VALUES EXCLUDING VAT.
+// All three suppliers pulled 23 Sep 2026. EDF withdrew its 18 Sep rise: the 12m is back
+// on v2 (pre-rise) and the 18m is a new v3. Octopus unchanged since 18 Sep. ALL VALUES EXCLUDING VAT.
 // VAT is applied at render time by vatFactor() so the table stays correct across
 // the 0% VAT window (1 Oct 2026 - 31 Mar 2027) without needing a rebuild.
-// Octopus: IOG-SMB-FIX-12M-26-09-18 | EDF: EDF_EV_FIX_GOELEC_12M_V3_HH + EDF_EV_FIX_GOELEC_18M_V2_HH
+// Octopus: IOG-SMB-FIX-12M-26-09-18 | EDF: EDF_EV_FIX_GOELEC_12M_V2_HH + EDF_EV_FIX_GOELEC_18M_V3_HH
 // EDF standing charge and off-peak rate are identical on both EDF tariffs; only peak differs.
 // Format: [Oct SC, Oct peak, EDF SC, EDF 12m peak, EDF 18m peak, region label]
 const REGION_DATA = {
-  'EA': [51.6715, 37.0832, 56.99, 35.92, 34.02, 'Eastern England'],
-  'EM': [50.7455, 35.1724, 56.61, 34.78, 32.88, 'East Midlands'],
-  'MW': [66.7427, 38.4209, 72.81, 34.80, 32.90, 'Merseyside & N. Wales'],
-  'NS': [55.277, 37.245, 60.29, 35.19, 33.28, 'North Scotland'],
-  'NW': [44.8523, 36.5393, 50.83, 36.70, 34.80, 'North West'],
-  'NO': [60.7016, 35.2164, 66.74, 33.40, 31.49, 'North East'],
-  'SC': [61.4414, 35.9661, 66.56, 34.04, 32.14, 'South Scotland'],
-  'SE': [52.2058, 37.2891, 57.47, 36.10, 34.20, 'South East'],
-  'WA': [54.3619, 36.657, 60.56, 35.34, 33.44, 'South Wales'],
-  'SW': [55.5236, 37.1715, 60.74, 35.35, 33.44, 'South West'],
-  'SO': [47.4715, 36.5099, 52.96, 36.37, 34.46, 'Southern'],
-  'WM': [56.614, 34.8931, 62.38, 34.17, 32.27, 'West Midlands'],
-  'YO': [60.8578, 34.555, 66.82, 33.52, 31.62, 'Yorkshire'],
-  'LO': [42.2934, 35.481, 48.07, 37.21, 35.30, 'London'],
+  'EA': [51.6715, 37.0832, 51.38, 31.56, 32.70, 'Eastern England'],
+  'EM': [50.7455, 35.1724, 51.05, 30.39, 31.53, 'East Midlands'],
+  'MW': [66.7427, 38.4209, 67.39, 30.44, 31.58, 'Merseyside & N. Wales'],
+  'NS': [55.277, 37.245, 54.80, 31.10, 32.24, 'North Scotland'],
+  'NW': [44.8523, 36.5393, 45.34, 32.20, 33.35, 'North West'],
+  'NO': [60.7016, 35.2164, 61.23, 29.02, 30.16, 'North East'],
+  'SC': [61.4414, 35.9661, 61.12, 29.63, 30.78, 'South Scotland'],
+  'SE': [52.2058, 37.2891, 51.85, 31.77, 32.91, 'South East'],
+  'WA': [54.3619, 36.657, 55.09, 30.97, 32.11, 'South Wales'],
+  'SW': [55.5236, 37.1715, 55.13, 31.02, 32.16, 'South West'],
+  'SO': [47.4715, 36.5099, 47.33, 32.19, 33.33, 'Southern'],
+  'WM': [56.614, 34.8931, 56.87, 29.76, 30.90, 'West Midlands'],
+  'YO': [60.8578, 34.555, 61.31, 29.01, 30.15, 'Yorkshire'],
+  'LO': [42.2934, 35.481, 42.65, 32.81, 33.95, 'London'],
 };
 
 // UK VAT on domestic electricity: 5%, cut to 0% from 1 Oct 2026 to 31 Mar 2027, then 5% again.
