@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EDF Home Assistant Integration (UK) | EDF Energy in HACS</title>
-<meta name="description" content="Free, open-source Home Assistant integration for EDF Energy UK. Live rates, consumption and costs in the Energy Dashboard, Go Electric Smart Charging control, and Flextras Power Perks free electricity sessions. Install through HACS in minutes.">
+<meta name="description" content="Free, open-source Home Assistant integration for EDF Energy UK. Live rates and standing charges, Go Electric Smart Charging, and Flextras Power Perks free electricity sessions. A fork of BottlecapDave's Octopus integration, customised for EDF. Install through HACS in minutes.">
 <meta name="keywords" content="EDF Home Assistant, EDF UK Home Assistant integration, EDF Energy HACS, Home Assistant EDF Go Electric, EDF smart charging Home Assistant, EDF Power Perks automation, EDF Kraken API Home Assistant">
 <meta name="author" content="Steve Kirtley">
 <meta name="robots" content="index, follow">
@@ -42,8 +42,8 @@
   "mainEntity": [
     { "@type": "Question", "name": "Is there an official EDF Energy integration for Home Assistant?", "acceptedAnswer": { "@type": "Answer", "text": "No. EDF do not publish a Home Assistant integration. HomeAssistant-EDFEnergy is an unofficial, open-source integration that talks to the same Kraken API the EDF app uses." } },
     { "@type": "Question", "name": "Is the EDF integration in HACS?", "acceptedAnswer": { "@type": "Answer", "text": "It is submitted to the HACS default catalogue and awaiting review. Until it is listed, add it as a custom repository in HACS, which takes about a minute." } },
-    { "@type": "Question", "name": "Does it work with Octopus Energy?", "acceptedAnswer": { "@type": "Answer", "text": "No. It is built for EDF Energy's Kraken platform. Octopus customers should use BottlecapDave's Octopus Energy integration, which this project was originally adapted from." } },
-    { "@type": "Question", "name": "Do I need a smart meter?", "acceptedAnswer": { "@type": "Answer", "text": "Rates, standing charges, Smart Charging and free electricity sessions work without one. Half-hourly consumption and cost statistics need a smart meter sending half-hourly readings to EDF." } }
+    { "@type": "Question", "name": "Does it work with Octopus Energy?", "acceptedAnswer": { "@type": "Answer", "text": "This library has been made just for EDF, but there are lots of good reasons to switch. See the comparisons on evtariffguide.co.uk." } },
+    { "@type": "Question", "name": "Do I need a smart meter?", "acceptedAnswer": { "@type": "Answer", "text": "Not all tariffs need a smart meter, but most of the advanced features, such as free electricity sessions, do." } }
   ]
 }
 </script>
@@ -169,17 +169,16 @@
 <header>
   <div class="container">
     <div class="hero-eyebrow fade-up">✓ Free · Open source · MIT licensed</div>
-    <h1 class="fade-up delay-1">EDF Energy in Home Assistant</h1>
-    <p class="hero-sub fade-up delay-2">The Home Assistant integration for EDF Energy UK customers. Live rates and costs in the Energy Dashboard, Go Electric Smart Charging under your control, and automations that fire when EDF hand out free electricity.</p>
+    <h1 class="fade-up delay-1">EDF Energy UK in Home Assistant</h1>
+    <p class="hero-sub fade-up delay-2"><strong>HomeAssistant user? Switching to EDF Energy?</strong><br>This fully featured EDF Energy HomeAssistant library started life as a fork of BottlecapDave's excellent Octopus equivalent. Customised to support EDF tariffs, promotions and product offers including Flextras, SmartCharging for your EV and much more.</p>
     <div class="hero-actions fade-up delay-3">
       <a class="btn btn-primary" href="https://my.home-assistant.io/redirect/hacs_repository/?owner=stevekirtley&amp;repository=HomeAssistant-EDFEnergy&amp;category=integration" target="_blank" rel="noopener">Add to HACS</a>
       <a class="btn btn-secondary" href="https://stevekirtley.github.io/HomeAssistant-EDFEnergy/" target="_blank" rel="noopener">Read the docs</a>
     </div>
     <div class="stat-row fade-up delay-3">
       <div class="stat"><div class="val">Rates &amp; costs</div><div class="label">Energy Dashboard ready</div></div>
-      <div class="stat"><div class="val">Smart Charging</div><div class="label">Go Electric dispatch control</div></div>
+      <div class="stat"><div class="val">Smart Charging</div><div class="label">Build automations around allocated intelligent charging slots</div></div>
       <div class="stat"><div class="val">Power Perks</div><div class="label">Free electricity automations</div></div>
-      <div class="stat"><div class="val">Any tariff</div><div class="label">Fixed, variable, EV or Economy 7</div></div>
     </div>
   </div>
 </header>
@@ -189,9 +188,10 @@
 <section>
   <div class="container">
     <div class="section-label">Why this exists</div>
-    <h2>EDF runs on Kraken. Home Assistant didn't know.</h2>
-    <p>EDF Energy moved its customers onto <strong>Kraken</strong>, the same platform Octopus Energy runs on. That gave EDF a proper API, but the well-known Home Assistant integration for Kraken is built for Octopus and won't talk to EDF's endpoint. EDF customers were left with nothing that understood their tariff, their Go Electric smart charging, or the Flextras free electricity schemes.</p>
-    <p><strong>HomeAssistant-EDFEnergy</strong> fixes that. It started as an adaptation of BottlecapDave's Octopus integration, so the entity names, rate handling and Energy Dashboard statistics follow a shape thousands of Home Assistant users already know. Since then it has grown EDF-specific features that don't exist anywhere else.</p>
+    <h2>Built by an Octopus refugee who wanted his automations back</h2>
+    <p>As a long-term Octopus Energy user I was frustrated at the dilution of value in my EV tariff. When I looked at the market EDF was cheaper, but there was no obvious way to handle all my HomeAssistant automations.</p>
+    <p>As EDF runs on <strong>Kraken</strong>, the same platform Octopus Energy runs on, I knew EDF had a proper API. I started work to make a fork of the Octopus HA library I'd been using and painstakingly updated it to work for EDF. Everything was similar, but just different enough to challenge even this experienced developer!</p>
+    <p>I made <strong>HomeAssistant-EDFEnergy</strong> available publicly and didn't expect it to prove so popular. Dozens of users are now using my library and it has grown EDF-specific features that don't exist anywhere else.</p>
   </div>
 </section>
 
@@ -201,39 +201,33 @@
   <div class="container">
     <div class="section-label">What you get</div>
     <h2>Everything on your EDF account, as Home Assistant entities</h2>
-    <p>One login, and the integration creates devices for your electricity and gas meters, your account, and any EV charger enrolled in Smart Charging.</p>
+    <p>Direct integration to your EDF account right in the HomeAssistant dashboard. One login, and the integration creates devices for your electricity and gas meters (if you have both, or just what you do have), your account, and even any EV charger you have connected for SmartCharging.</p>
 
     <div class="feature-grid">
       <div class="feature">
         <div class="icon">💷</div>
         <h3>Rates and standing charges</h3>
-        <p>Current, previous and next unit rates for electricity and gas, half hour by half hour, plus standing charges. Time-of-use windows are read from the tariff itself, so Go Electric's 23:00 to 06:00 off-peak just works. If EDF hide your product from their pricing API, the rates come from your account agreement instead.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">📊</div>
-        <h3>Consumption and cost statistics</h3>
-        <p>Half-hourly consumption and cost from your smart meter, imported as long-term statistics for the Energy Dashboard. Daily, weekly and monthly totals, with peak and off-peak splits on multi-rate tariffs, and cost trackers for any energy entity you like.</p>
+        <p>Current, previous and next unit rates for electricity and gas, half hour by half hour, plus standing charges. Time-of-use windows are read from the tariff information itself, so Go Electric's 23:00 to 06:00 off-peak just works.</p>
       </div>
       <div class="feature highlight">
         <div class="icon">🚗</div>
         <h3>Go Electric Smart Charging</h3>
-        <p>A "Smart Charging Dispatching" sensor that turns on during allocated smart slots, with planned and started dispatches as attributes. Switches for smart charge and bump charge, and controls for charge target and ready-by time. Rates during dispatches are adjusted to off-peak automatically.</p>
-        <div class="pill-row"><span class="pill pill-blue">Andersen, Ohme, Hypervolt, myenergi and more</span></div>
+        <p>A "Smart Charging Dispatching" sensor that turns on during allocated smart slots, with planned and started dispatches as attributes. Switches for smart charge and bump charge, and controls for charge target and ready-by time.</p>
       </div>
       <div class="feature highlight">
         <div class="icon">⚡</div>
         <h3>Flextras and Power Perks free electricity</h3>
-        <p>EDF announce Power Perks sessions by text message and nowhere else. The integration picks them up anyway and publishes every free electricity window as a calendar, next-session sensors and events, so your battery, EV and heavy loads can run on free power without you lifting a finger.</p>
+        <p>EDF announce Power Perks free electricity sessions by text message. The integration picks them up anyway and publishes every free electricity window as a calendar, next-session sensors and events, so (once configured) your home battery, EV and heavy loads can run on free power without you lifting a finger.</p>
         <div class="pill-row"><span class="pill pill-green">Join Flextras from HA</span><span class="pill pill-green">Register for Power Perks</span><span class="pill pill-green">Claim bonus hours</span></div>
       </div>
       <div class="feature">
         <div class="icon">🖥️</div>
         <h3>The EDF Energy panel</h3>
-        <p>A sidebar panel that shows your Flextras status, free electricity history, and the schemes your tariff is eligible for, with buttons to join or opt out. No YAML required.</p>
+        <p>A sidebar panel that shows your Flextras status, free electricity history, and the schemes your tariff is eligible for, with a button to join. No YAML required.</p>
       </div>
       <div class="feature">
         <div class="icon">🔍</div>
-        <h3>Tariff comparison</h3>
+        <h3>Tariff comparison <span class="pill pill-amber" style="vertical-align: middle; margin-left: 6px;">Coming soon</span></h3>
         <p>Compare what yesterday would have cost on any other EDF tariff, using your real consumption. Handy for deciding whether Go Electric, a fixed deal or the standard variable rate is right for you.</p>
       </div>
     </div>
@@ -245,15 +239,13 @@
 <section id="automations">
   <div class="container">
     <div class="section-label">Automations</div>
-    <h2>Things people build with it</h2>
+    <h2>Things people have built with it</h2>
     <p>Every rate, dispatch and free session is a normal Home Assistant entity, so it slots straight into automations, dashboards and the Energy panel.</p>
     <ul class="ideas">
       <li>Force-charge a home battery through the Go Electric off-peak window, and hold it back during the evening peak.</li>
       <li>Start the dishwasher, tumble dryer or immersion heater the moment a Power Perks free electricity session begins, and stop them when it ends.</li>
       <li>Pause a battery export when a Smart Charging slot is allocated, so the car gets the cheap power first.</li>
-      <li>Send a phone notification with tomorrow's free electricity window as soon as EDF announce it.</li>
       <li>Track exactly what an EV, heat pump or hot tub costs per day on your real tariff, not a guessed flat rate.</li>
-      <li>Show today's rate curve on a dashboard card, with dispatches and free sessions marked.</li>
     </ul>
   </div>
 </section>
@@ -297,19 +289,15 @@
       </details>
       <details>
         <summary>Do I need a smart meter?</summary>
-        <p>Rates, standing charges, Smart Charging and free electricity sessions work without one. Half-hourly consumption and cost statistics need a smart meter sending half-hourly readings to EDF, which is also what Go Electric requires.</p>
+        <p>Not all tariffs need a smart meter, but most of the advanced features, such as free electricity sessions, do.</p>
       </details>
       <details>
         <summary>I'm on Octopus, not EDF. Can I use it?</summary>
-        <p>No. Octopus customers should use BottlecapDave's Octopus Energy integration, which this project was adapted from. If you're weighing up a move to EDF, the guides on this site cover the numbers.</p>
-      </details>
-      <details>
-        <summary>How do Power Perks sessions get into Home Assistant?</summary>
-        <p>EDF only announce them by text message. A small relay reads the text from the phone holding the registered number, works out the window, and publishes it. Every install reads that feed, so nothing needs configuring. There's also an action to enter a session by hand.</p>
+        <p>This library has been made just for EDF, but there are lots of good reasons to switch. See <a href="/">our comparisons</a>.</p>
       </details>
       <details>
         <summary>Is it free?</summary>
-        <p>Yes. MIT licensed, no accounts, no telemetry. If it saves you money, there's a <a href="https://github.com/sponsors/stevekirtley" target="_blank" rel="noopener">GitHub Sponsors</a> page, and if you switch to EDF you're welcome to use the <a href="https://edfenergy.com/quote/refer-a-friend/massive-sun-7007" target="_blank" rel="noopener">referral link</a>.</p>
+        <p>Yes. MIT licensed, no accounts, no telemetry. If it saves you money, there's a <a href="https://github.com/sponsors/stevekirtley" target="_blank" rel="noopener">GitHub Sponsors</a> page, and if you switch to EDF you're welcome to use my <a href="https://edfenergy.com/quote/refer-a-friend/massive-sun-7007" target="_blank" rel="noopener">referral link</a>.</p>
       </details>
     </div>
   </div>
