@@ -320,7 +320,7 @@
           </tr>
           <tr>
             <td>Peak / day rate</td>
-            <td id="oct-peak">37–41p / kWh (regional — enter postcode)</td>
+            <td id="oct-peak">35–39p / kWh (regional — enter postcode)</td>
             <td class="val-good" id="edf-peak">35–39p / kWh (regional — enter postcode)</td>
             <td class="val-good" id="edf18-peak">32–36p / kWh (regional — enter postcode) <span class="winner-badge">✓ Lower</span></td>
           </tr>
@@ -362,7 +362,7 @@
           </tr>
           <tr>
             <td>Contract length</td>
-            <td class="val-good">12 months — no exit fee</td>
+            <td class="val-warn">12 months — £50 exit fee if you leave early</td>
             <td class="val-warn">12 months — £75 exit fee if you leave early</td>
             <td class="val-warn">18 months — £100 exit fee if you leave early</td>
           </tr>
@@ -392,7 +392,7 @@
       <a href="https://share.octopus.energy/neat-mouse-241" class="referral-card oct secondary" target="_blank" rel="noopener" aria-label="Switch to Octopus Go and get a £50 switching bonus">
         <div class="provider">Octopus Energy</div>
         <h3>Octopus Go</h3>
-        <p>12-month fixed · ~9.5p/kWh · 5-hour window · No exit fee</p>
+        <p>12-month fixed · 9.98p/kWh · 5-hour window · £50 exit fee</p>
         <span class="referral-credit">🐙 Get £50 switching bonus →</span>
       </a>
     </div>
@@ -508,7 +508,7 @@
       <a href="https://share.octopus.energy/neat-mouse-241" class="referral-card oct secondary" target="_blank" rel="noopener">
         <div class="provider">Octopus Energy</div>
         <h3>Octopus Go</h3>
-        <p>~9.5p/kWh · 5 hours · No exit fee</p>
+        <p>9.98p/kWh · 5 hours · £50 exit fee</p>
         <span class="referral-credit">🐙 Get £50 switching bonus →</span>
       </a>
     </div>
@@ -534,23 +534,23 @@
 // The two EDF tariffs no longer share a standing charge. ALL VALUES EXCLUDING VAT.
 // VAT is applied at render time by vatFactor() so the table stays correct across
 // the 0% VAT window (1 Oct 2026 - 31 Mar 2027) without needing a rebuild.
-// Octopus: Octopus Go: GO-FIX-12M-26-09-18 | EDF: EDF_EV_FIX_GOELEC_12M_V3_HH + EDF_EV_FIX_GOELEC_18M_V3_HH
+// Octopus: GO-FIX-12M-26-09-29 | EDF: EDF_EV_FIX_GOELEC_12M_V3_HH + EDF_EV_FIX_GOELEC_18M_V3_HH
 // Format: [Oct SC, Oct peak, EDF 12m SC, EDF 12m peak, EDF 18m SC, EDF 18m peak, region label]
 const REGION_DATA = {
-  'EA': [51.6715, 37.7832, 56.99, 35.92, 51.38, 32.70, 'Eastern England'],
-  'EM': [50.7455, 35.8724, 56.61, 34.78, 51.05, 31.53, 'East Midlands'],
-  'MW': [66.7427, 39.1209, 72.81, 34.80, 67.39, 31.58, 'Merseyside & N. Wales'],
-  'NS': [55.277, 37.945, 60.29, 35.19, 54.80, 32.24, 'North Scotland'],
-  'NW': [44.8523, 37.2393, 50.83, 36.70, 45.34, 33.35, 'North West'],
-  'NO': [60.7016, 35.9164, 66.74, 33.40, 61.23, 30.16, 'North East'],
-  'SC': [61.4414, 36.6661, 66.56, 34.04, 61.12, 30.78, 'South Scotland'],
-  'SE': [52.2058, 37.9891, 57.47, 36.10, 51.85, 32.91, 'South East'],
-  'WA': [54.3619, 37.357, 60.56, 35.34, 55.09, 32.11, 'South Wales'],
-  'SW': [55.5236, 37.8715, 60.74, 35.35, 55.13, 32.16, 'South West'],
-  'SO': [47.4715, 37.2099, 52.96, 36.37, 47.33, 33.33, 'Southern'],
-  'WM': [56.614, 35.5931, 62.38, 34.17, 56.87, 30.90, 'West Midlands'],
-  'YO': [60.8578, 35.255, 66.82, 33.52, 61.31, 30.15, 'Yorkshire'],
-  'LO': [42.2934, 36.181, 48.07, 37.21, 42.65, 33.95, 'London'],
+  'EA': [51.6715, 36.0832, 56.99, 35.92, 51.38, 32.70, 'Eastern England'],
+  'EM': [50.7455, 34.1724, 56.61, 34.78, 51.05, 31.53, 'East Midlands'],
+  'MW': [66.7427, 37.4209, 72.81, 34.80, 67.39, 31.58, 'Merseyside & N. Wales'],
+  'NS': [55.277, 36.245, 60.29, 35.19, 54.80, 32.24, 'North Scotland'],
+  'NW': [44.8523, 35.5393, 50.83, 36.70, 45.34, 33.35, 'North West'],
+  'NO': [60.7016, 34.2164, 66.74, 33.40, 61.23, 30.16, 'North East'],
+  'SC': [61.4414, 34.9661, 66.56, 34.04, 61.12, 30.78, 'South Scotland'],
+  'SE': [52.2058, 36.2891, 57.47, 36.10, 51.85, 32.91, 'South East'],
+  'WA': [54.3619, 35.657, 60.56, 35.34, 55.09, 32.11, 'South Wales'],
+  'SW': [55.5236, 36.1715, 60.74, 35.35, 55.13, 32.16, 'South West'],
+  'SO': [47.4715, 35.5099, 52.96, 36.37, 47.33, 33.33, 'Southern'],
+  'WM': [56.614, 33.8931, 62.38, 34.17, 56.87, 30.90, 'West Midlands'],
+  'YO': [60.8578, 33.555, 66.82, 33.52, 61.31, 30.15, 'Yorkshire'],
+  'LO': [42.2934, 34.481, 48.07, 37.21, 42.65, 33.95, 'London'],
 };
 
 // UK VAT on domestic electricity: 5%, cut to 0% from 1 Oct 2026 to 31 Mar 2027, then 5% again.

@@ -39,7 +39,7 @@
       "name": "How does EDF Go Electric compare to Octopus Intelligent Go?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "EDF Go Electric offers a cheaper off-peak rate (6.99p/kWh vs 8.40p/kWh), a longer overnight window (7 hours vs 6 hours), and no cap on intelligent dispatch. On today's prices the 18-month Go Electric has a lower peak rate than Intelligent Go in every region with a standing charge within a penny or so a day; the 12-month is cheaper at peak in 12 of 14 regions but its standing charge is 5.5 to 6.5p a day higher. Octopus Intelligent Go requires a compatible vehicle or charger just to join the tariff, whereas EDF Go Electric is available to anyone — with Smart Charging scheduling as an optional free add-on for compatible vehicles and chargers. Octopus has no exit fee; EDF charges £75 on its 12-month Go Electric tariff, or £100 on the 18-month version, if you leave early. Since 25 September the 18-month is the cheaper of the two on both peak rate and standing charge."
+        "text": "EDF Go Electric offers a cheaper off-peak rate (6.99p/kWh vs 8.40p/kWh), a longer overnight window (7 hours vs 6 hours), and no cap on intelligent dispatch. On today's prices the 18-month Go Electric has a lower peak rate than Intelligent Go in every region with a standing charge within a penny or so a day; the 12-month is cheaper at peak in 12 of 14 regions but its standing charge is 5.5 to 6.5p a day higher. Octopus Intelligent Go requires a compatible vehicle or charger just to join the tariff, whereas EDF Go Electric is available to anyone — with Smart Charging scheduling as an optional free add-on for compatible vehicles and chargers. Since late September 2026 Octopus charge a £50 exit fee on their smart EV tariffs; EDF charges £75 on its 12-month Go Electric tariff, or £100 on the 18-month version. Since 25 September the 18-month is the cheaper of the two on both peak rate and standing charge."
       }
     },
     {
@@ -505,7 +505,7 @@
           </tr>
           <tr>
             <td>Contract length</td>
-            <td class="val-good">12 months — no exit fee</td>
+            <td class="val-warn">12 months — £50 exit fee if you leave early</td>
             <td class="val-warn">12 months — £75 exit fee if you leave early</td>
             <td class="val-warn">18 months — £100 exit fee if you leave early</td>
           </tr>
@@ -535,7 +535,7 @@
       <a href="https://share.octopus.energy/neat-mouse-241" class="referral-card oct secondary" target="_blank" rel="noopener" aria-label="Switch to Octopus Intelligent Go and get a £50 switching bonus">
         <div class="provider">Octopus Energy</div>
         <h3>Intelligent Go Tariff</h3>
-        <p>12-month fixed rate · Smart EV charging · No exit fee</p>
+        <p>12-month fixed rate · Smart EV charging · £50 exit fee</p>
         <span class="referral-credit">🐙 Get £50 switching bonus →</span>
       </a>
     </div>
@@ -738,7 +738,7 @@
       <a href="https://share.octopus.energy/neat-mouse-241" class="referral-card oct secondary" target="_blank" rel="noopener">
         <div class="provider">Octopus Energy</div>
         <h3>Intelligent Go</h3>
-        <p>12-month fixed · Great HomeAssistant support · No exit fee</p>
+        <p>12-month fixed · Great HomeAssistant support · £50 exit fee</p>
         <span class="referral-credit">🐙 Get £50 switching bonus →</span>
       </a>
     </div>
@@ -765,7 +765,7 @@
 // The two EDF tariffs no longer share a standing charge. ALL VALUES EXCLUDING VAT.
 // VAT is applied at render time by vatFactor() so the table stays correct across
 // the 0% VAT window (1 Oct 2026 - 31 Mar 2027) without needing a rebuild.
-// Octopus: Octopus: IOG-SMB-FIX-12M-26-09-18 (now a four-rate EV tariff in Octopus’s API, with separate EV-device registers) | EDF: EDF_EV_FIX_GOELEC_12M_V3_HH + EDF_EV_FIX_GOELEC_18M_V3_HH
+// Octopus: IOG-SMB-FIX-12M-26-09-26 | EDF: EDF_EV_FIX_GOELEC_12M_V3_HH + EDF_EV_FIX_GOELEC_18M_V3_HH
 // Format: [Oct SC, Oct peak, EDF 12m SC, EDF 12m peak, EDF 18m SC, EDF 18m peak, region label]
 const REGION_DATA = {
   'EA': [51.6715, 37.0832, 56.99, 35.92, 51.38, 32.70, 'Eastern England'],
