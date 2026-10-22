@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Every UK EV Tariff Compared | EV Tariff Guide</title>
-<meta name="description" content="Peak, off-peak and standing charges for every EV tariff from Octopus, EDF and E.ON Next, by region, straight from supplier APIs.">
-<meta name="robots" content="noindex, nofollow">
+<title>Compare UK EV Tariffs, Side by Side | EV Tariff Guide</title>
+<meta name="description" content="Peak, off-peak and standing charges for the currently available EV tariffs from Octopus, EDF and E.ON Next, by region, straight from supplier APIs. Filter by what your car, charger and meter can actually join.">
+<link rel="canonical" href="https://evtariffguide.co.uk/ev-tariff-comparison">
 <meta name="author" content="Steve Kirtley">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -29,7 +29,10 @@
   a { color: var(--edf); }
 
   nav { background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-  nav .inner { max-width: 1040px; margin: 0 auto; padding: 14px 24px; }
+  nav .inner { max-width: 1040px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  nav .inner .logo { margin-right: auto; }
+  nav .inner a:not(.logo) { font-size: 0.78rem; font-weight: 500; color: var(--muted); padding: 5px 11px; border-radius: 20px; text-decoration: none; white-space: nowrap; }
+  nav .inner a:not(.logo):hover { background: var(--bg); color: var(--text); }
   nav .logo { font-family: var(--display); font-size: 0.95rem; font-weight: 700; color: var(--text); text-decoration: none; }
 
   header { background: linear-gradient(140deg, #eef6ff 0%, #e8f3fe 40%, #edfaf4 100%); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
@@ -97,6 +100,8 @@
   .rate { font-weight: 600; }
   .best { color: var(--green); font-weight: 700; }
   .elig { font-size: 0.76rem; color: var(--muted); line-height: 1.45; max-width: 24ch; display: inline-block; text-align: right; }
+  .checklink { font-size: 0.72rem; color: var(--edf); text-decoration: underline; text-decoration-color: var(--border); }
+  .checklink:hover { text-decoration-color: var(--edf); }
   .warnflag { color: var(--amber); font-weight: 600; }
 
   .note { background: var(--amber-light); border: 1px solid var(--amber-border); border-radius: var(--radius-sm); padding: 14px 18px; font-size: 0.82rem; color: #92400e; margin-top: 18px; line-height: 1.6; }
@@ -108,13 +113,13 @@
 </head>
 <body>
 
-<nav><div class="inner"><a class="logo" href="/">&#9889; EV Tariff Guide</a></div></nav>
+<nav aria-label="Page navigation"><div class="inner"><a class="logo" href="/">&#9889; EV Tariff Guide</a><a href="/best-octopus-intelligent-go-alternatives">Intelligent Go guide</a><a href="/best-octopus-go-alternative">Octopus Go guide</a><a href="/edf-home-assistant-integration">Home Assistant</a></div></nav>
 
 <header>
   <div class="container">
     <div class="eyebrow">Rates read from supplier APIs &#183; 21 October 2026</div>
-    <h1>Every UK EV tariff, side by side</h1>
-    <p class="sub">Peak, off-peak and standing charges for all current EV tariffs from Octopus, EDF and E.ON Next. Pick your region and choose whether to show prices with or without VAT.</p>
+    <h1>Compare UK EV tariffs, side by side</h1>
+    <p class="sub">Peak, off-peak and standing charges for all currently available EV tariffs from Octopus, EDF and E.ON Next. Pick your region and choose whether to show prices with or without VAT.</p>
   </div>
 </header>
 
@@ -175,7 +180,7 @@
 
       <div class="q" data-q="compat">
         <span class="qtext">Is your car or charger on the supplier&#8217;s compatible list?
-          <small>Needed to join the smart-dispatch tariffs &#8212; Intelligent Octopus Go and E.ON Next Drive Smart. Tesla, VW Group, BMW/Mini, Ford, Polestar and chargers like Ohme, Hypervolt, Zappi and Indra are usually covered.</small></span>
+          <small>Needed to join the smart-dispatch tariffs &#8212; Intelligent Octopus Go and E.ON Next Drive Smart. Each supplier keeps its own list: <a href="https://octopus.energy/smart/intelligent-octopus-go/#eligibility-form" target="_blank" rel="noopener">Octopus&#8217;s eligibility checker</a> covers cars and chargers; E.ON publishes <a href="https://www.eonnext.com/tariffs/next-drive/smart/supported-vehicles" target="_blank" rel="noopener">supported cars</a> and names its <a href="https://www.eonnext.com/tariffs/next-drive/smart" target="_blank" rel="noopener">supported chargers</a> (zappi, Hypervolt and Indra) on the tariff page.</small></span>
         <span class="seg" role="group" aria-label="Compatible vehicle or charger">
           <button type="button" data-v="yes" aria-pressed="false">Yes</button>
           <button type="button" data-v="no" aria-pressed="false">No</button>
@@ -185,7 +190,7 @@
 
       <div class="q" data-q="podpoint">
         <span class="qtext">Do you have a Pod Point charger, or would you buy one?
-          <small>EDF&#8217;s Pod Power tariffs need Pod Point hardware. Plug &amp; Power bundles the charger into the standing charge.</small></span>
+          <small>EDF&#8217;s <a href="https://podenergy.com/products/pod-power" target="_blank" rel="noopener">Pod Power</a> tariffs work with any Pod Point home charger. <a href="https://www.edfenergy.com/electric-cars/ev-tariffs/plug-and-power" target="_blank" rel="noopener">Plug &amp; Power</a> bundles a new charger into the standing charge.</small></span>
         <span class="seg" role="group" aria-label="Pod Point charger">
           <button type="button" data-v="yes" aria-pressed="false">Yes</button>
           <button type="button" data-v="no" aria-pressed="true">No</button>
@@ -246,7 +251,8 @@
 
 <footer>
   <div class="container">
-    Written by Steve Kirtley &#183; Rates are indicative and baked in at the time shown above &#8212; always verify on the supplier&#8217;s own site before switching.
+    Written by Steve Kirtley &#183; Rates are indicative and baked in at the time shown above &#8212; always verify on the supplier&#8217;s own site before switching.<br>
+    Also see: <a href="/best-octopus-intelligent-go-alternatives">Best Octopus Intelligent Go Alternatives</a> &#183; <a href="/best-octopus-go-alternative">Best Octopus Go Alternative</a> &#183; <a href="/edf-home-assistant-integration">EDF Home Assistant Integration</a>
   </div>
 </footer>
 
@@ -284,6 +290,23 @@ const REQS = {
 };
 
 const answers = { hh: 'yes', compat: 'unsure', podpoint: 'no', oev: 'no', edfstaff: 'no' };
+
+// Where to confirm your car or charger qualifies, for the tariffs that need particular hardware.
+// Matched on the product family so a new version code keeps its link.
+function checkLink(t) {
+  if (t.code.indexOf('IOG-') === 0) return { label: 'Octopus eligibility checker', url: 'https://octopus.energy/smart/intelligent-octopus-go/#eligibility-form' };
+  if (t.code.indexOf('NEXT_DRIVE_SMART') === 0) return { label: 'E.ON supported cars', url: 'https://www.eonnext.com/tariffs/next-drive/smart/supported-vehicles', label2: 'chargers', url2: 'https://www.eonnext.com/tariffs/next-drive/smart' };
+  if (t.code.indexOf('EDF_PODPOINT_EV_PANDP') === 0) return { label: 'Plug &amp; Power details', url: 'https://www.edfenergy.com/electric-cars/ev-tariffs/plug-and-power' };
+  if (t.code.indexOf('EDF_PODPOINT') === 0) return { label: 'Pod Power details', url: 'https://podenergy.com/products/pod-power' };
+  return null;
+}
+function checkHtml(t) {
+  const c = checkLink(t);
+  if (!c) return '';
+  let h = '<a class="checklink" href="' + c.url + '" target="_blank" rel="noopener">' + c.label + '</a>';
+  if (c.url2) h += ' &#183; <a class="checklink" href="' + c.url2 + '" target="_blank" rel="noopener">' + c.label2 + '</a>';
+  return h;
+}
 
 // A requirement blocks a tariff only on a clear "no"; "not sure" lets it through, flagged.
 function eligibility(t) {
@@ -349,6 +372,7 @@ function render() {
       '<td' + (t.exit ? ' class="warnflag"' : '') + '>' + exit + '</td>' +
       '<td><span class="elig">' + t.elig +
         (eligibility(t).unsure ? '<br><span class="flagnote">check compatibility</span>' : '') +
+        (checkLink(t) ? '<br>' + checkHtml(t) : '') +
       '</span></td>' +
       '</tr>';
   }).join('');
@@ -397,7 +421,7 @@ function renderResult(byCost, offKwh, peakKwh) {
       (next ? ' That is ' + money(saving) + ' a year less than the next best, ' + next.t.name + '.' : '') +
       (win.t.term ? '' : ' <strong>Note:</strong> this is a variable tariff, so its rates can change at any time &#8212; the fixed tariffs below hold their price for the term.') +
       (win.t.exit ? ' Leaving early costs &#163;' + win.t.exit.toFixed(0) + '.' : '') +
-      (eligibility(win.t).unsure ? ' <strong>Before you switch:</strong> confirm your car or charger is on the compatible list &#8212; ' + win.t.elig.toLowerCase() + '.' : '') +
+      (eligibility(win.t).unsure ? ' <strong>Before you switch:</strong> confirm your car or charger is on the compatible list &#8212; ' + win.t.elig.toLowerCase() + (checkLink(win.t) ? ' (' + checkHtml(win.t) + ')' : '') + '.' : '') +
     '</p>' +
     (byCost.length > 1 ? '<div class="runners">' + byCost.slice(1, 4).map(r =>
       '<span class="runner"><b>' + r.t.name + '</b> ' + money(r.cost) + '</span>').join('') + '</div>' : '');
