@@ -85,7 +85,7 @@
   .guide-card.primary:hover { border-color: var(--edf); }
   .guide-card.secondary-card { border-color: var(--oct-border); background: linear-gradient(135deg, var(--oct-light), #fff9f9); }
   .guide-card.secondary-card:hover { border-color: var(--oct); }
-  .guide-card.compare-card { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 24px; padding: 24px 28px; }
+  .guide-card.compare-card { margin-top: 24px; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 24px; padding: 24px 28px; }
   .guide-card.compare-card h3 { margin: 0; }
   .guide-card.compare-card p { margin: 4px 0 0; }
   .guide-card.compare-card .guide-cta { margin: 0; white-space: nowrap; }
@@ -189,7 +189,7 @@
   <div class="container">
     <div class="section-label">Guides</div>
     <h2>Which guide is right for you?</h2>
-    <p>Two situations, two guides. Pick the one that matches where you are right now, or compare every currently available EV tariff side by side.</p>
+    <p>Two situations, two guides. Pick the one that matches where you are right now.</p>
 
     <div class="guide-grid">
 
@@ -217,15 +217,6 @@
           <span class="pill pill-red">No compatibility needed</span>
         </div>
         <span class="guide-cta">Read the comparison →</span>
-      </a>
-
-      <a href="/ev-tariff-comparison" class="guide-card compare-card">
-        <div>
-          <div class="guide-tag">All suppliers</div>
-          <h3>Compare UK EV tariffs, side by side</h3>
-          <p>Every currently available EV tariff from Octopus, EDF and E.ON Next in one table. Pick your region, enter your usage, and filter out the tariffs your car, charger or meter can't join.</p>
-        </div>
-        <span class="guide-cta">Open the comparison →</span>
       </a>
 
     </div>
@@ -294,6 +285,15 @@
         </tr>
       </tbody>
     </table>
+
+    <a href="/ev-tariff-comparison" class="guide-card compare-card">
+      <div>
+        <div class="guide-tag">All suppliers</div>
+        <h3>Compare UK EV tariffs, side by side</h3>
+        <p>Every currently available EV tariff from Octopus, EDF and E.ON Next in one table. Pick your region, enter your usage, and filter out the tariffs your car, charger or meter can't join.</p>
+      </div>
+      <span class="guide-cta">Open the comparison →</span>
+    </a>
   </div>
 </section>
 
