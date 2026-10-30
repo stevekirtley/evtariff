@@ -411,7 +411,7 @@
     <p>Standing charges vary by region in the UK. Enter your postcode below for a more accurate figure — otherwise the table shows indicative national averages.</p>
 
     <div class="callout-warn" id="vat-callout">
-      <p><strong>VAT on domestic electricity is currently 0%.</strong> Every figure below is shown at 0% VAT, which is what you actually pay. The Government cut VAT on domestic electricity in Great Britain from 5% to 0% on 1 October 2026; it is due to return to 5% on 1 April 2027, at which point these rates rise by about 5%.</p>
+      <p><strong>VAT on domestic electricity is currently 0%.</strong> Every figure below is shown at 0% VAT, which is what you actually pay. The Government cut VAT on domestic electricity in Great Britain from 5% to 0% on 1 October 2026; it is due to return to 5% on 1 August 2027, at which point these rates rise by about 5%.</p>
     </div>
 
     <div class="postcode-row" role="search">
@@ -451,7 +451,7 @@
             <td>Peak / day rate</td>
             <td id="oct-peak">37–42p / kWh (regional — enter postcode)</td>
             <td class="val-good" id="edf-peak">33–37p / kWh (regional — enter postcode)</td>
-            <td class="val-good" id="edf18-peak">31–35p / kWh (regional — enter postcode) <span class="winner-badge">✓ Lower</span></td>
+            <td id="edf18-peak">34–38p / kWh (regional — enter postcode)</td>
           </tr>
           <tr>
             <td>Off-peak window</td>
@@ -472,7 +472,7 @@
             <td>Standing charge</td>
             <td class="val-good" id="oct-standing">43–68p/day (regional — enter postcode)</td>
             <td id="edf-standing">48–73p/day (regional — enter postcode)</td>
-            <td id="edf18-standing">43–67p/day (regional — enter postcode)</td>
+            <td class="val-good" id="edf18-standing">43–68p/day (regional — enter postcode)</td>
           </tr>
           <tr>
             <td>Smart Charging</td>
@@ -514,7 +514,7 @@
       </table>
     </div>
 
-    <p class="table-note">* All rates pulled 21 October 2026. Octopus: IOG-SMB-FIX-12M-26-10-14, issued on 20 October (a four-rate EV tariff in Octopus’s API, with separate EV-device registers). EDF: EDF_EV_FIX_GOELEC_12M_V3_HH (Go Electric 12m v3) and EDF_EV_FIX_GOELEC_18M_V4_HH (Go Electric 18m v4). EDF launched the 18m v4 on 21 October with the same standing charges as v3 and a peak rate about 1p/kWh higher in every region; the 12m v3, on sale since 18 September, is unchanged, and the 18m v3 was still listed as available on the day v4 appeared. The two EDF tariffs do not share a standing charge. The 18-month is about 2.2p/kWh cheaper at peak and about 5.5p a day cheaper on standing charge than the 12-month, so on today's prices it is the cheaper EDF tariff on every line except the exit fee (£100 rather than £75) and the six-month longer tie-in. Both keep the 6.66p/kWh off-peak rate. Against Intelligent Go, the 18-month has the lower peak rate and the lower standing charge in every region, by 0.5 to 4.5p a day. The 12-month has the lower peak rate in every region, but its standing charge is 1 to 5p a day higher than Octopus’s. Octopus reissued Intelligent Go on 20 October: the 8.00p off-peak rate is unchanged, but the peak rate rose by between 1.8p and 3.8p/kWh and the standing charge by between 0.9p and 5p a day, depending on region. All figures are shown at 0% VAT: the Government cut VAT on domestic electricity in Great Britain from 5% to 0% on 1 October 2026, and it is due to return to 5% on 1 April 2027. Rates are baked into this page at time of writing — always verify current rates on each supplier's website before switching.</p>
+    <p class="table-note">* Octopus and the EDF 12-month pulled 21 October 2026; the EDF 18-month pulled 30 October. Octopus Go: GO-FIX-12M-26-10-14, issued on 20 October. EDF: EDF_EV_FIX_GOELEC_12M_V3_HH (Go Electric 12m v3) and EDF_EV_FIX_GOELEC_18M_V5_HH (Go Electric 18m v5), which EDF pre-published to go live on 31 October 2026. The v5 raises the 18-month peak rate by about 2.7p/kWh in every region and its standing charge by about 0.4p a day, leaving the 6.66p/kWh off-peak rate alone. That reverses the pick between EDF's two tariffs: the 18-month was cheaper at peak in all 14 regions on v4, and on v5 it is dearer in all 14, by about 0.5p/kWh. It still has the lower standing charge, by about 5.1p a day, so which EDF tariff wins now depends on how much you use at peak — and the 18-month still carries the £100 exit fee and six months more tie-in. Against Octopus Go, the 12-month has the lower peak rate in every region and the 18-month in 12 of 14, while Octopus keeps the lower standing charge in 10 of 14. All figures are shown at 0% VAT: the Government cut VAT on domestic electricity in Great Britain from 5% to 0% on 1 October 2026, and following the extension announced in October it now runs to 31 July 2027, returning to 5% on 1 August 2027. Rates are baked into this page at time of writing — always verify on each supplier's website before switching.</p>
   </div>
 </section>
 
@@ -765,29 +765,29 @@
 // Go Electric 18m v4 on 21 Oct: same standing charges as 18m v3, peak about 1p/kWh higher. 12m v3 unchanged.
 // The two EDF tariffs do not share a standing charge. ALL VALUES EXCLUDING VAT.
 // VAT is applied at render time by vatFactor() so the table stays correct across
-// the 0% VAT window (1 Oct 2026 - 31 Mar 2027) without needing a rebuild.
-// Octopus: IOG-SMB-FIX-12M-26-10-14 | EDF: EDF_EV_FIX_GOELEC_12M_V3_HH + EDF_EV_FIX_GOELEC_18M_V4_HH
+// the 0% VAT window (1 Oct 2026 - 31 Jul 2027) without needing a rebuild.
+// Octopus: IOG-SMB-FIX-12M-26-10-14 | EDF: EDF_EV_FIX_GOELEC_12M_V3_HH + EDF_EV_FIX_GOELEC_18M_V5_HH
 // Format: [Oct SC, Oct peak, EDF 12m SC, EDF 12m peak, EDF 18m SC, EDF 18m peak, region label]
 const REGION_DATA = {
-  'EA': [53.4151, 39.4292, 56.99, 35.92, 51.38, 33.73, 'Eastern England'],
-  'EM': [53.6027, 37.1572, 56.61, 34.78, 51.05, 32.52, 'East Midlands'],
-  'MW': [68.358, 41.546, 72.81, 34.80, 67.39, 32.64, 'Merseyside & N. Wales'],
-  'NS': [57.6145, 39.0058, 60.29, 35.19, 54.80, 32.97, 'North Scotland'],
-  'NW': [49.8096, 39.4433, 50.83, 36.70, 45.34, 34.49, 'North West'],
-  'NO': [63.7522, 37.6087, 66.74, 33.40, 61.23, 31.14, 'North East'],
-  'SC': [63.3666, 38.8647, 66.56, 34.04, 61.12, 31.80, 'South Scotland'],
-  'SE': [54.8219, 39.655, 57.47, 36.10, 51.85, 33.93, 'South East'],
-  'WA': [57.7917, 39.3022, 60.56, 35.34, 55.09, 33.13, 'South Wales'],
-  'SW': [58.5211, 39.2457, 60.74, 35.35, 55.13, 33.15, 'South West'],
-  'SO': [51.1539, 38.5684, 52.96, 36.37, 47.33, 34.18, 'Southern'],
-  'WM': [58.8337, 37.6087, 62.38, 34.17, 56.87, 31.92, 'West Midlands'],
-  'YO': [62.3975, 37.8769, 66.82, 33.52, 61.31, 31.27, 'Yorkshire'],
-  'LO': [43.1614, 39.2881, 48.07, 37.21, 42.65, 34.99, 'London'],
+  'EA': [53.4151, 39.4292, 56.99, 35.92, 51.84, 36.46, 'Eastern England'],
+  'EM': [53.6027, 37.1572, 56.61, 34.78, 51.45, 35.27, 'East Midlands'],
+  'MW': [68.358, 41.546, 72.81, 34.80, 67.66, 35.40, 'Merseyside & N. Wales'],
+  'NS': [57.6145, 39.0058, 60.29, 35.19, 55.14, 35.72, 'North Scotland'],
+  'NW': [49.8096, 39.4433, 50.83, 36.70, 45.68, 37.24, 'North West'],
+  'NO': [63.7522, 37.6087, 66.74, 33.40, 61.58, 33.89, 'North East'],
+  'SC': [63.3666, 38.8647, 66.56, 34.04, 61.41, 34.56, 'South Scotland'],
+  'SE': [54.8219, 39.655, 57.47, 36.10, 52.32, 36.66, 'South East'],
+  'WA': [57.7917, 39.3022, 60.56, 35.34, 55.41, 35.88, 'South Wales'],
+  'SW': [58.5211, 39.2457, 60.74, 35.35, 55.58, 35.88, 'South West'],
+  'SO': [51.1539, 38.5684, 52.96, 36.37, 47.81, 36.91, 'Southern'],
+  'WM': [58.8337, 37.6087, 62.38, 34.17, 57.23, 34.66, 'West Midlands'],
+  'YO': [62.3975, 37.8769, 66.82, 33.52, 61.67, 33.87, 'Yorkshire'],
+  'LO': [43.1614, 39.2881, 48.07, 37.21, 42.92, 37.75, 'London'],
 };
 
-// UK VAT on domestic electricity: 5%, cut to 0% from 1 Oct 2026 to 31 Mar 2027, then 5% again.
+// UK VAT on domestic electricity: 5%, cut to 0% from 1 Oct 2026 to 31 Jul 2027, then 5% again.
 const VAT_ZERO_FROM = new Date('2026-10-01T00:00:00');
-const VAT_ZERO_END  = new Date('2027-04-01T00:00:00');
+const VAT_ZERO_END  = new Date('2027-08-01T00:00:00');
 function vatFactor(now) { now = now || new Date(); return (now >= VAT_ZERO_FROM && now < VAT_ZERO_END) ? 1 : 1.05; }
 function vatCutPending(now) { now = now || new Date(); return now < VAT_ZERO_FROM; }
 function exVatHint(value) {

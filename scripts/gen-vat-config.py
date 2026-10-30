@@ -42,24 +42,24 @@ TOK = [
 HINT_RE = re.compile(r'<span class="vat-note">[^<]*</span>')
 
 VAT_PRE = (" All figures include VAT at 5%. Note that VAT on domestic electricity in Great Britain "
-           "drops from 5% to 0% between 1 October 2026 and 31 March 2027, which will cut every rate "
+           "drops from 5% to 0% between 1 October 2026 and 31 July 2027, which will cut every rate "
            "here by about 4.8% — suppliers' own quotes may already be shown at 0%.")
 VAT_ZERO = (" All figures are shown at 0% VAT: the Government cut VAT on domestic electricity in Great "
-            "Britain from 5% to 0% on 1 October 2026, and it is due to return to 5% on 1 April 2027.")
-VAT_POST = (" All figures include VAT at 5%, which is the rate that resumed on 1 April 2027 after the "
+            "Britain from 5% to 0% on 1 October 2026, and it is due to return to 5% on 1 August 2027.")
+VAT_POST = (" All figures include VAT at 5%, which is the rate that resumed on 1 August 2027 after the "
             "temporary 0% window.")
 
 CALL_ZERO = ('      <p><strong>VAT on domestic electricity is currently 0%.</strong> Every figure below is '
              'shown at 0% VAT, which is what you actually pay. The Government cut VAT on domestic '
              'electricity in Great Britain from 5% to 0% on 1 October 2026; it is due to return to 5% on '
-             '1 April 2027, at which point these rates rise by about 5%.</p>')
+             '1 August 2027, at which point these rates rise by about 5%.</p>')
 CALL_PRE = ('      <p><strong>Heads up &#8212; VAT on electricity drops to 0% on 1 October 2026.</strong> The '
-            'figures below include VAT at 5%. From 1 October until 31 March 2027 the Government has cut VAT '
+            'figures below include VAT at 5%. From 1 October until 31 July 2027 the Government has cut VAT '
             'on domestic electricity in Great Britain to 0%, so every rate here falls by about 4.8%. This '
             'page switches over automatically on the day.</p>')
-CALL_POST = ('      <p><strong>VAT on domestic electricity returned to 5% on 1 April 2027.</strong> Every '
+CALL_POST = ('      <p><strong>VAT on domestic electricity returned to 5% on 1 August 2027.</strong> Every '
              'figure below includes VAT at 5%. The temporary 0% rate applied between 1 October 2026 and '
-             '31 March 2027 and has now ended.</p>')
+             '31 July 2027 and has now ended.</p>')
 
 
 def swap(text, reverse=False):
@@ -119,8 +119,8 @@ def main():
                      "today's date and rewrites each block to that state's variant. Regenerate with "
                      "scripts/gen-vat-config.py after changing any rate or range in the pages."),
         "states": {"pre": {"until": "2026-10-01"},
-                   "zero": {"from": "2026-10-01", "until": "2027-04-01"},
-                   "post": {"from": "2027-04-01"}},
+                   "zero": {"from": "2026-10-01", "until": "2027-08-01"},
+                   "post": {"from": "2027-08-01"}},
         "timezone": "Europe/London",
         "replacements": pairs,
     }

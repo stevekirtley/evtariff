@@ -2,7 +2,7 @@
 """Switch the site between VAT states as the UK's temporary 0% electricity VAT window opens and closes.
 
 VAT on domestic electricity in Great Britain is 5%, cut to 0% from 1 October 2026
-to 31 March 2027, then 5% again. vat.config.json holds, for every line of copy
+to 31 July 2027, then 5% again. vat.config.json holds, for every line of copy
 that carries a VAT-sensitive figure, one variant per state:
 
   pre   5% VAT, with a bracketed note showing the rate that applies from 1 Oct
