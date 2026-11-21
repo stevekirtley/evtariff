@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://evtariffguide.co.uk/sitemap.xml
+Sitemap: https://www.evtariffguide.co.uk/sitemap.xml

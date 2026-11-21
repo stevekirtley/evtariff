@@ -147,6 +147,100 @@
                 "off": "EDF referral links earn me a referral credit and give you a £50 switching bonus. Octopus referral links give you a £50 switching bonus.",
                 "on": "EDF referral links earn me £{referrer} and give you a £75 switching bonus (promotional rate, until {end_long}). Octopus referral links give you a £50 switching bonus."
             }
+        ],
+        "edf-referral-code.html": [
+            {
+                "off": "<title>EDF Referral Code: £50 Credit for Switching, How It Works</title>",
+                "on": "<title>EDF Referral Code (November 2026): £75 Credit, How It Works</title>"
+            },
+            {
+                "off": "\"headline\":\"EDF Referral Code: £50 Credit for Switching, How It Works\"",
+                "on": "\"headline\":\"EDF Referral Code (November 2026): £75 Credit, How It Works\""
+            },
+            {
+                "off": "Get £50 bill credit when you switch. Who qualifies, when it lands, and which tariff to pick.\">",
+                "on": "Get £75 bill credit if you join by {end_long}. Who qualifies, when it lands, and which tariff to pick.\">"
+            },
+            {
+                "off": "<meta property=\"og:title\" content=\"EDF Referral Code: £50 credit, how it works\">",
+                "on": "<meta property=\"og:title\" content=\"EDF Referral Code (November 2026): £75 credit, how it works\">"
+            },
+            {
+                "off": "EDF uses referral links. £50 credit when you switch, who qualifies",
+                "on": "EDF uses referral links. £75 credit until {end_long}, who qualifies"
+            },
+            {
+                "off": "<meta name=\"twitter:title\" content=\"EDF Referral Code: £50 credit\">",
+                "on": "<meta name=\"twitter:title\" content=\"EDF Referral Code (November 2026): £75 credit\">"
+            },
+            {
+                "off": "No promo code needed. £50 credit when you switch, who qualifies",
+                "on": "No promo code needed. £75 credit until {end_long}, who qualifies"
+            },
+            {
+                "off": "A new customer who joins through a referral link gets £50 of account credit, and so does the person who referred them. EDF boosts this a couple of times a year: from 16 November 2026 to 5 January 2027 it was £75 for the new customer and £100 for the referrer.",
+                "on": "From 16 November 2026 to {end_long}, a new customer who joins through a referral link gets £75 of account credit and the person who referred them gets £{referrer}. Outside promotions it's normally £50 each."
+            },
+            {
+                "off": "✓ Checked 21 November 2026</div>",
+                "on": "✓ Checked 21 November 2026 · Offer ends {end_long}</div>"
+            },
+            {
+                "off": "<br>£50 credit when you switch</h1>",
+                "on": "<br>£75 credit until {end_long}</h1>"
+            },
+            {
+                "off": "Join through one and you get <strong>£50 of bill credit</strong>.",
+                "on": "Join through one between 16 November 2026 and {end_long} and you get <strong>£75 of bill credit</strong> (£50 as standard)."
+            },
+            {
+                "off": "<span class=\"badge badge-green\">£50 for you</span>",
+                "on": "<span class=\"badge badge-green\">£75 for you</span>"
+            },
+            {
+                "off": "make your first payment, £50 is added to your EDF account",
+                "on": "make your first payment, £75 is added to your EDF account"
+            },
+            {
+                "off": "<li><strong>You get:</strong> £50 bill credit</li>",
+                "on": "<li><strong>You get:</strong> £75 bill credit if you join by {end_long} (normally £50)</li>"
+            },
+            {
+                "off": "<li><strong>I get:</strong> £50 bill credit.",
+                "on": "<li><strong>I get:</strong> £{referrer} bill credit (normally £50)."
+            },
+            {
+                "off": "aria-label=\"Get a quote from EDF with my referral link and £50 credit\"",
+                "on": "aria-label=\"Get a quote from EDF with my referral link and £75 credit\""
+            },
+            {
+                "off": "<h3>Get a quote with £50 credit</h3>",
+                "on": "<h3>Get a quote with £75 credit</h3>"
+            },
+            {
+                "off": "⚡ Get my £50 quote →",
+                "on": "⚡ Get my £75 quote →"
+            },
+            {
+                "off": "<tr><td>16 Nov 2026 – 5 Jan 2027 (festive offer)</td><td>£75</td>",
+                "on": "<tr class=\"current\"><td><strong>16 Nov 2026 – 5 Jan 2027</strong> (festive offer, now)</td><td><strong>£75</strong></td>"
+            },
+            {
+                "off": "<h2 id=\"cta-heading\">Get £50 when you join EDF</h2>",
+                "on": "<h2 id=\"cta-heading\">Get £75 when you join EDF</h2>"
+            },
+            {
+                "off": "<p>EDF boosts the reward a couple of times a year, so check the offer history above. The link only goes to EDF's own quote page.</p>",
+                "on": "<p>Join by {end_long} to get £75 instead of the usual £50. The link only goes to EDF's own quote page.</p>"
+            },
+            {
+                "off": "<p>I receive £50 bill credit when you switch. You pay nothing extra.</p>",
+                "on": "<p>I receive £{referrer} bill credit when you switch. You pay nothing extra.</p>"
+            },
+            {
+                "off": "we each get £50 bill credit.",
+                "on": "I get £{referrer} bill credit and you get £75 (promotional rates until {end_long}, normally £50 each)."
+            }
         ]
     }
 }
