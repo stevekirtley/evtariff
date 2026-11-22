@@ -241,6 +241,32 @@
                 "off": "we each get £50 bill credit.",
                 "on": "I get £{referrer} bill credit and you get £75 (promotional rates until {end_long}, normally £50 each)."
             }
+        ],
+        "edf-go-electric-review.html": [
+            {
+                "off": "You get £50 of bill credit when you join.",
+                "on": "You get £75 of bill credit if you join by {end_long} (£50 as standard)."
+            },
+            {
+                "off": "<h2 id=\"cta-heading\">Get £50 credit when you join EDF</h2>",
+                "on": "<h2 id=\"cta-heading\">Get £75 credit when you join EDF</h2>"
+            },
+            {
+                "off": "my referral link gets you £50 of bill credit. I get the same.</p>",
+                "on": "my referral link gets you £75 of bill credit if you join by {end_long} (£50 as standard). I get £{referrer}.</p>"
+            },
+            {
+                "off": "<h3>Get a quote with £50 credit</h3>",
+                "on": "<h3>Get a quote with £75 credit</h3>"
+            },
+            {
+                "off": "⚡ Get £50 credit when you switch →",
+                "on": "⚡ Get £75 credit when you switch →"
+            },
+            {
+                "off": "we each get £50 bill credit.",
+                "on": "I get £{referrer} bill credit and you get £75 (promotional rates until {end_long}, normally £50 each)."
+            }
         ]
     }
 }
