@@ -1,6 +1,6 @@
 <?php
 // evtariffguide.co.uk counter: page views and referral clicks/copies, counted per page and source.
-// No cookies, no IP addresses, nothing per visitor. Daily totals only.
+// No cookies, no IP addresses, nothing per visitor. Totals per UTC hour, keyed event|page|source|HH.
 // Lives on the relay server; the site posts to it with navigator.sendBeacon.
 
 $dataDir = __DIR__ . '/data';
@@ -40,7 +40,7 @@ if (!is_array($in) || !in_array($in['e'] ?? '', $events, true)) {
 }
 $page = preg_replace('~[^a-z0-9/_-]~', '', strtolower(substr((string)($in['p'] ?? ''), 0, 60))) ?: '/';
 $src  = preg_replace('~[^a-z0-9._-]~', '', strtolower(substr((string)($in['s'] ?? ''), 0, 40))) ?: 'direct';
-$key  = $in['e'] . '|' . $page . '|' . $src;
+$key  = $in['e'] . '|' . $page . '|' . $src . '|' . gmdate('H');
 
 if (!is_dir($dataDir)) {
     mkdir($dataDir, 0750, true);
@@ -50,7 +50,7 @@ if (!is_dir($dataDir)) {
 $fh = fopen("$dataDir/" . gmdate('Y-m-d') . '.json', 'c+');
 if ($fh && flock($fh, LOCK_EX)) {
     $data = json_decode(stream_get_contents($fh) ?: '{}', true) ?: [];
-    if (isset($data[$key]) || count($data) < 5000) {
+    if (isset($data[$key]) || count($data) < 20000) {
         $data[$key] = ($data[$key] ?? 0) + 1;
     }
     ftruncate($fh, 0);
