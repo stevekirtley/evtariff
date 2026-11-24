@@ -1,4 +1,6 @@
 // Counts page views and referral link clicks/copies. No cookies, nothing personal:
+// EDF counts only the personal referral link (/quote/refer-a-friend/...), not EDF's info page;
+// Fuse has no referral URL, so only the quote buttons beside the code count, not the text links.
 // just event, page and where the visitor came from (search engine, Facebook, direct...).
 (function () {
   var ENDPOINT = 'https://apirelay.sitetest.org.uk/evtariff/track.php';
@@ -42,8 +44,8 @@
     var a = ev.target.closest && ev.target.closest('a[href]');
     if (a) {
       var href = a.getAttribute('href');
-      if (/refer-a-friend/.test(href)) send('edf_click');
-      else if (/fuseenergy\.com/.test(href)) send('fuse_click');
+      if (/\/quote\/refer-a-friend\//.test(href)) send('edf_click');
+      else if (/fuseenergy\.com/.test(href) && a.classList.contains('quote-btn')) send('fuse_click');
       else if (/share\.octopus\.energy/.test(href)) send('octopus_click');
       return;
     }
@@ -59,6 +61,6 @@
   document.addEventListener('copy', function () {
     var sel = String(window.getSelection ? window.getSelection() : '');
     if (/STEVE25217/i.test(sel)) send('fuse_copy');
-    else if (/refer-a-friend/.test(sel)) send('edf_copy');
+    else if (/\/quote\/refer-a-friend\//.test(sel)) send('edf_copy');
   });
 })();
